@@ -32,6 +32,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# images an partials to work on heroku. run bundle install
+group :production do
+  gem "rails_12factor"
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
