@@ -39,6 +39,13 @@ end
 
 gem 'devise'
 
+gem "omniauth-twitter"
+
+# allows use env for secret keys
+group :development, :test do
+  gem 'dotenv-rails'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

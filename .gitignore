@@ -34,3 +34,6 @@ rerun.txt
 pickle-email-*.html
 .project
 config/initializers/secret_token.rb
+
+* Ignore the .env file as it contains secret keys for twitter, devise, rails production
+.env

@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-LittlehumansApp::Application.config.secret_key_base = 'bf357e12fde512c88b89b6b225a545bafafa9f90adfeacc45b752e8ef7c68fd1e717d8383de2bbdfb466bfc507205632dd0825eb5e6515dd530e74e10b270066'
+LittlehumansApp::Application.config.secret_key_base = ENV['RAILS_SECRET_KEY_BASE']
