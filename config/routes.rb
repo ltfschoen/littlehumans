@@ -1,5 +1,12 @@
 LittlehumansApp::Application.routes.draw do
 
+  
+  get "static_pages/about_us"
+  get "static_pages/contact_us"
+  get "static_pages/privacy"
+  get "static_pages/terms_and_cond"
+  get "static_pages/help"
+  
   devise_for :users, 
              :controllers => { :omniauth_callbacks => "users/omniauth_callbacks",
 							   :registrations => "users/registrations", 
