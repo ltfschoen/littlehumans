@@ -13,3 +13,10 @@
  */
 @import "bootstrap";
 
+/* CSS BAR AT TOP */
+
+#scrollContent{
+	height:186px;
+	overflow:false;
+	position:relative;
+}.navbar-collapse:before, .navbar-collapse:after{display:inline; content:"";}

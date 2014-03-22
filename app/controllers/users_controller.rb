@@ -5,13 +5,13 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-    redirect_to "devise/sessions#new"
   end
 
-  # # GET /users/1
-  # # GET /users/1.json
-  # def show
-  # end
+  # GET /users/1
+  # GET /users/1.json
+  def show
+  	@user = current_user
+  end
 
   # # GET /users/new
   # def new
