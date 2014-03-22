@@ -27,8 +27,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :twitter_login << :provider << :uid << :kind << :image << :name
-    devise_parameter_sanitizer.for(:account_update) << :twitter_login << :provider << :uid << :kind << :image << :name
+  	custom_fields = %i(twitter_login provider uid kind image name)
+  	devise_parameter_sanitizer.for(:sign_up) << custom_fields
+    devise_parameter_sanitizer.for(:account_update) << custom_fields
   end
 
 end
