@@ -9,6 +9,9 @@ gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
+# added bootstrap for SASS as described at https://github.com/twbs/bootstrap-sass
+gem 'bootstrap-sass', '~> 3.1.1'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -39,7 +42,18 @@ end
 
 gem 'devise'
 
+# gem used to get twitter oauth working successfully
 gem "omniauth-twitter"
+
+# gem used to get facebook oauth working 
+gem 'omniauth-facebook'
+
+# gem used to get google oauth working 
+gem 'omniauth-google-oauth2'
+
+# gem to allow multiple authentication (i.e. both facebook and twitter)
+# https://github.com/intridea/omniauth
+gem 'omniauth'
 
 # allows use env for secret keys
 group :development, :test do
