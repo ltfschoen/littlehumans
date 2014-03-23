@@ -6,6 +6,26 @@
   <link href='http://fonts.googleapis.com/css?family=Lemon' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <style>
+    /* tooltips for OAuth login buttons */
+    /* {
+		border: 1px solid black;
+    } */
+
+	body {
+		background: black url("/images/pic-162860348-shutter.jpg") no-repeat fixed center;
+		background-size: cover;
+	}
+
+	.social { display:none; }
+	#tw, #fb, #go { display:block;
+		vertical-align: center; 
+		position: relative; 
+		margin-left: 10px; 
+		margin-top: 10px;
+		z-index: 1000; 
+	}
+  </style>
 </head>
 <body>
 
@@ -27,11 +47,13 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
-				<% if @stage == 1 && @lock_select_submit == false %>
-				<li class="active"><%= link_to 'Home', root_path %></li>
-				<% else %>
-				<li><%= link_to 'Home', root_path %></li>
-				<% end %>
+				<%# if @stage == 1 && @lock_select_submit == false %>
+				<!-- <li class="active"><%#= link_to 'Home', root_path %></li> -->
+				<%# else %>
+				<!-- <li><%#= link_to 'Home', root_path %></li> -->
+
+				<li><a href="/"><i class="glyphicon glyphicon-home"></i></a></li>
+				<%# end %>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -59,6 +81,18 @@
 					</ul>
 				</li>
 			</ul>
+		</div>	
+	    <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+          <li>
+            <form class="navbar-form">
+          <input type="text" style="width: 200px; display:inline-block;" class="form-control" placeholder="Search">
+          <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+        </form>
+          </li>
+
+        </ul>
+
 		</div>
 
 	</nav>
@@ -104,7 +138,6 @@
 	
 </div>
 
-
 <footer>
 
   <%= render partial:'/shared/footer' %>
@@ -112,5 +145,6 @@
 </footer>
 
 <script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript" src="./underscore.js"></script>
 </body>
 </html>
