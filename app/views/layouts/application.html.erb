@@ -5,6 +5,10 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <link href='http://fonts.googleapis.com/css?family=Lemon' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <!-- shared partial meta included in below -->
+  <% if content_for?(:head) %>
+    <%= yield(:head) %>
+  <% end %>
   <%= csrf_meta_tags %>
   <style>
     /* tooltips for OAuth login buttons */
@@ -46,7 +50,7 @@
 </head>
 <body>
 
-<header>
+<header id="header">
 
 	<nav class="navbar navbar-inverse nav_init" role="navigation" style="background-color:#333333">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -100,7 +104,7 @@
 			</ul>
 		</div>	
 		<!-- do not display search bar if no user logged in -->
-		<% if !current_user.nil? %>
+		<% if user_signed_in? %>
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
 				<li>
