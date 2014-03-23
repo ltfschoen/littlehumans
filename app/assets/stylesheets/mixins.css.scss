@@ -10,7 +10,8 @@ $break-large: 540px;
   @media screen and (max-width: $break-small) {
     width: 100px;
     text-align: left; 
-    font-size: 0.8em; // halve the font size on small screens
+    font-size: 0.7em; // halve the font size on small screens
+    //font-size: 90%;
     //float: none;
   }
 

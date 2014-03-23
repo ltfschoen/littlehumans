@@ -10,7 +10,7 @@
     <%= yield(:head) %>
   <% end %>
   <%= csrf_meta_tags %>
-  
+
 </head>
 <body id="site-container">
 
@@ -69,11 +69,11 @@
 		</div>	
 		<!-- do not display search bar if no user logged in -->
 		<% if user_signed_in? %>
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
+		<div class="collapse navbar-collapse navbar-ex1-collapse" style="overflow-x: hidden;" >
 			<ul class="nav navbar-nav">
 				<li>
 					<form class="navbar-form">
-						<input type="text" style="width: 200px; display:inline-block;" class="form-control" placeholder="Search">
+						<input type="text" style="width: 70%; display:inline-block;" class="form-control" placeholder="Search">
 						<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
 					</form>
 				</li>
