@@ -77,4 +77,8 @@ LittlehumansApp::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # http://stackoverflow.com/questions/9095249/undefined-mixin-global-reset-when-deploying-to-heroku
+  # added so mixins load when deploy to heroku
+  config.assets.precompile += %w( application.css.scss )
 end
