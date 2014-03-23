@@ -26,12 +26,12 @@
   <div class="deffered-block">
 	  <%= link_to image_tag("/images/login_tw.jpg"), omniauth_authorize_path(resource_name, :twitter), class: 'social', id: 'tw_button' %>
 	  <br>
-	  <span id="tw"></span>
+	  <span id="tw" class="omniSpan"></span>
 	  <%= link_to image_tag("/images/login_go.jpg"), omniauth_authorize_path(resource_name, :google_oauth2), class: 'social', id: 'go_button'  %>
 	  <br>
-	  <span id="go"></span>
+	  <span id="go" class="omniSpan"></span>
 	  <%= link_to image_tag("/images/login_fb.jpg"), omniauth_authorize_path(resource_name, :facebook), class: 'social', id: 'fb_button' %>
-	  <span id="fb"></span>
+	  <span id="fb" class="omniSpan"></span>
   </div>
 <% end -%>
 
@@ -41,25 +41,31 @@
 	
 	  // fade in social buttons, hidden by default
 	  var omniLinks = $('.social'); 
-	  omniLinks.fadeIn();
+	  var omniSpan = $('.omniSpan');
+	  var navBar = $('.navbar navbar-inverse nav_init');
+	  console.log(navBar);
+	  navBar.addClass("nav_enter");
 
-	  $('#tw_button').on('mouseover', function() { 
-	  	console.log("hover");
-	  	$('#tw').html("Click to login via Twitter");
-	    $('#tw').css("display","block").fadeToggle(1000);
-	  });
+	  omniLinks.fadeIn(2000);
+	  omniSpan.hide(4000);
 
-	  $('#go_button').on('mouseover', function() { 
-	  	console.log("hover");
-	  	$('#go').html("Click to login via Google");
-	    $('#go').css("display","block").fadeToggle(1000);
-	  });
+	  // $('#tw_button').on('mouseover', function() { 
+	  // 	console.log("hover");
+	  // 	$('#tw').html("Click to login via Twitter");
+	  //   $('#tw').css("display","block").fadeToggle(1000);
+	  // });
 
-	  $('#fb_button').on('mouseover', function() { 
-	  	console.log("hover");
-	  	$('#fb').html("Click to login via Facebook");
-	    $('#fb').css("display","block").fadeToggle(1000);
-	  });
+	  // $('#go_button').on('mouseover', function() { 
+	  // 	console.log("hover");
+	  // 	$('#go').html("Click to login via Google");
+	  //   $('#go').css("display","block").fadeToggle(1000);
+	  // });
+
+	  // $('#fb_button').on('mouseover', function() { 
+	  // 	console.log("hover");
+	  // 	$('#fb').html("Click to login via Facebook");
+	  //   $('#fb').css("display","block").fadeToggle(1000);
+	  // });
 
 	});
 

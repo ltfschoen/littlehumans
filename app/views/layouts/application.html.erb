@@ -25,13 +25,30 @@
 		margin-top: 10px;
 		z-index: 1000; 
 	}
+
+	.nav_init {
+		/*position: absolute;*/
+		display:block;
+		margin-top: 0px;
+	}
+
+	.nav_enter {
+		/*position: relative;*/
+	    display:block;
+	    margin-top: 100px;
+	    height:auto;
+	    -webkit-transition-duration: 2s;
+	    -moz-transition-duration: 2s;
+	    -o-transition-duration: 2s;
+	    transition-duration: 2s;
+	}
   </style>
 </head>
 <body>
 
 <header>
 
-	<nav class="navbar navbar-inverse" role="navigation" style="background-color:#333333">
+	<nav class="navbar navbar-inverse nav_init" role="navigation" style="background-color:#333333">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
