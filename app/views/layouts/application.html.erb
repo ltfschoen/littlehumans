@@ -10,45 +10,9 @@
     <%= yield(:head) %>
   <% end %>
   <%= csrf_meta_tags %>
-  <style>
-    /* tooltips for OAuth login buttons */
-    /* {
-		border: 1px solid black;
-    } */
-
-	body {
-		background: black url("/images/pic-162860348-shutter.jpg") no-repeat fixed center;
-		background-size: cover;
-	}
-
-	.social { display:none; }
-	#tw, #fb, #go { display:block;
-		vertical-align: center; 
-		position: relative; 
-		margin-left: 10px; 
-		margin-top: 10px;
-		z-index: 1000; 
-	}
-
-	.nav_init {
-		/*position: absolute;*/
-		display:block;
-		margin-top: 0px;
-	}
-
-	.nav_enter {
-		/*position: relative;*/
-	    display:block;
-	    margin-top: 100px;
-	    height:auto;
-	    -webkit-transition-duration: 2s;
-	    -moz-transition-duration: 2s;
-	    -o-transition-duration: 2s;
-	    transition-duration: 2s;
-	}
-  </style>
+  
 </head>
-<body>
+<body id="site-container">
 
 <header id="header">
 
@@ -168,5 +132,6 @@
 
 <script type="text/javascript" src="./jquery.js"></script>
 <script type="text/javascript" src="./underscore.js"></script>
+
 </body>
 </html>

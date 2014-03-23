@@ -1,0 +1,33 @@
+body {
+	// background: black url("/images/pic-162860348-shutter.jpg") no-repeat fixed center;
+	// background-size: cover;
+}
+
+#container { 
+	position:relative;	/* This fixes the IE7 overflow hidden bug */
+	clear:both;
+	float:left;
+	width:100%;			/* width of whole page */
+	overflow:hidden;		/* This chops off any overhanging divs */
+	margin: 0px auto; 
+	text-align: center; 
+	padding-left: .6em; 
+	padding-right: .6em;  
+}
+
+a:hover {
+	text-decoration:none;
+}
+
+h1, h2, h3 {
+	margin:.8em 0 .2em 0;
+	padding:0;
+}
+p {
+	margin:.4em 0 .8em 0;
+	padding:0;
+}
+img {
+	max-width: 300px;
+	margin:10px 0 5px;
+}

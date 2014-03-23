@@ -13,72 +13,8 @@
  */
 @import "bootstrap";
 
-/* http://matthewjamestaylor.com/blog/perfect-2-column-left-menu.htm */ 
+@import 'header'; /* imports SCSS partial _header.css.scss */
+@import 'container'; /* imports SCSS partial _container.css.scss */
 
-body {
-	margin:0;
-	padding:0;
-	border:0;			/* This removes the border around the viewport in old versions of IE */
-	width:100%;
-	background:#fff;
-	font-size:90%;
-}
+@import "mixins";
 
-a:hover {
-	text-decoration:none;
-}
-
-h1, h2, h3 {
-	margin:.8em 0 .2em 0;
-	padding:0;
-}
-p {
-	margin:.4em 0 .8em 0;
-	padding:0;
-}
-img {
-	margin:10px 0 5px;
-}
-
-#header {
-	clear:both;
-	float:left;
-	width:100%;
-}
-
-#container { 
-	position:relative;	/* This fixes the IE7 overflow hidden bug */
-	clear:both;
-	float:left;
-	width:100%;			/* width of whole page */
-	overflow:hidden;		/* This chops off any overhanging divs */
-	margin: 0px auto; 
-	text-align: center; 
-	padding-left: .6em; 
-	padding-right: .6em;  
-}
-
-footer {
-	clear:both;
-	float:left;
-	width:100%;			/* width of whole page */
-}
-
-.defferred-block { display: none; }
-
-.social {
-	opacity:0.7;
-	filter:alpha(opacity=40); /* For IE8 and earlier */
-}
-
-.social:hover {
-	opacity:1.0;
-	filter:alpha(opacity=100); /* For IE8 and earlier */
-} 
-
-/* CSS BAR AT TOP */
-#scrollContent{
-	height:186px;
-	overflow:false;
-	position:relative;
-}.navbar-collapse:before, .navbar-collapse:after{display:inline; content:""; }

@@ -15,3 +15,24 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+
+
+// mobile and desktop friendly
+// function adjustStyle(width) {
+//     width = parseInt(width);
+//     if (width < 701) {
+//         $("#size-stylesheet").attr("href", "../narrow.css.scss");
+//     } else if ((width >= 701) && (width < 900)) {
+//         $("#size-stylesheet").attr("href", "../medium.css.scss");
+//     } else {
+//        $("#size-stylesheet").attr("href", "../wide.css.scss"); 
+//     }
+//     // add iphone.css.scss and style.css.scss
+// }
+
+// $(function() {
+//     adjustStyle($(this).width());
+//     $(window).resize(function() {
+//         adjustStyle($(this).width());
+//     });
+// });
