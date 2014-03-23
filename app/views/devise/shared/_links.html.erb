@@ -38,9 +38,9 @@
 	    var destination = $(this).attr('href');
 	    //$(this).html("disable msg");
 	    $(this).html('<img src=\"\/images\/login_delay.jpg\"/>'); 
-	    setTimeout(function() { // function fires after 1ms delay
+	    setTimeout(function() { 
 	      location = destination;
-	    }, 10);
+	    }, 1000); // function fires after 2s if value is 2000
 	    return false;
 	});
 
