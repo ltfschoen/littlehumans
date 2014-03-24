@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # prepend_before_filter :require_no_authentication, :only => [:new, :create, :authentication]
-
   before_action :authenticate_user!
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
@@ -21,7 +19,7 @@ class ApplicationController < ActionController::Base
     else
       # redirects to the users show page when logged in
 
-      users_url
+      dashboard_url
       #user_url(current_user.id)
     end
   end

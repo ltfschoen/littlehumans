@@ -14,6 +14,10 @@ class UsersController < ApplicationController
   	@user = current_user
   end
 
+  def dashboard
+  	redirect_to user_path(current_user)
+  end
+
   # # GET /users/new
   # def new
 

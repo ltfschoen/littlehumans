@@ -31,10 +31,6 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
-				<%# if @stage == 1 && @lock_select_submit == false %>
-				<!-- <li class="active"><%#= link_to 'Home', root_path %></li> -->
-				<%# else %>
-				<!-- <li><%#= link_to 'Home', root_path %></li> -->
 
 				<li><a href="/"><i class="glyphicon glyphicon-home"></i></a></li>
 				<%# end %>
@@ -89,36 +85,12 @@
     <p class="alert alert-error"><%= alert %></p>
   <% end %>
 
-  <!-- <ul class="nav">
-  	<li class="active"><a href="#">Littlehumans App</a></li>
-  </ul> -->
-
-<!--   <p class="navbar-text pull-right">
-  	<%# if user_signed_in? %>
-  	  Logged in as <strong><%#= current_user.email %></strong>.
-  	  <%#= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  	  <%#= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-  	<%# else %>
-  	  <%#= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-  	  <%#= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-  	<%# end %>
-  </p> -->
-
-  <%#= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-  <%#= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
-  <%#= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
 </header>
 
 <div id="container">
 
   <%= yield %>
 
-</div>
-
-<div id="ga">
-
-
-	
 </div>
 
 <footer>

@@ -14,6 +14,8 @@ LittlehumansApp::Application.routes.draw do
              				 }
 
   resources :users, :only => [:index, :show, :edit, :update]
+  
+  get '/dashboard' => "users#dashboard", as: :dashboard
 
   devise_scope :user do
   	root :to => "devise/sessions#new"
