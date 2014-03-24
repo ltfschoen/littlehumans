@@ -3,16 +3,27 @@ User ID: <%= @user.id %>
 <!-- Begin Body -->
 <div class="container-user">
 	<div class="row">
+
   			<div class="col-sm-2" id="sidebar-user">
       			<ul class="nav nav-pills nav-stacked">
-                  	<li><a href="#">Roster</a></li>
-          			<li><a href="#">Deliveries</a></li>
+                  	<!-- <li><a href="#" id="roster">Roster</a></li> -->
+                  	<form id="search-roster" action="#" method="get">
+		       	  	  <input id="search-roster-input" type="text" style="width: 100%; display:inline-block;" class="form-control" placeholder="Search" autofocus="true">
+		     	      <!-- <button id="fetch">Search Drugs</button> -->
+		     	      <%= submit_tag("Search Roster", class: "btn btn-primary", id: "fetch-roster", style:"width: 100%;") %>
+		            </form>
+          			<li><a href="#" id="births">Births</a></li>
  					<li class="divider-user"></li>
-          			<li><a href="#">Drug Search</a></li>
-          			<li><a href="#">News</a></li>
+          			<li><a href="#" id="news">News</a></li>
+          			<form id="search-form" action="#" method="get">
+		       	  	  <input id="search-form-input" type="text" style="width: 100%; display:inline-block;" class="form-control" placeholder="Search" autofocus="true">
+		     	      <!-- <button id="fetch">Search Drugs</button> -->
+		     	      <%= submit_tag("Search Drugs", class: "btn btn-info", id: "fetch-drugs", style:"width: 100%;") %>
+		            </form>
 				</ul>
       		</div>  
-      		<div class="col-sm-9">
+
+      		<div class="col-sm-9" id="exchange-main">
               	<h1>News 1</h1>
                 <img src="//placehold.it/300x300/EEEEEE/EEEEEE/assets/#" style="height:300px;width:300px;" class="img-circle pull-right">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium
               
@@ -20,30 +31,37 @@ User ID: <%= @user.id %>
               
               	<h2>News 2</h2>
 				Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium
-
+			
               	<!-- /assets/#" -->
-              	
-		        <form id="search-form" action="#" method="get">
-		       	  <input id="search-form-input" type="text">
-		     	  <button id="fetch">Search</button>
-		        </form>
+        	</div>
+
+        	<div class="col-sm-9" id="exchange-search" >      	
 
 			    <div id="content">
-			  	  <ul id="movies">
+			  	  <table id="movies">
 					<!-- ajax outputs -->
-			  	  </ul>
+			  	  </table>
 			    </div>
-
+				<br>
       		</div> 
+
+      		<div class="col-sm-9" id="exchange-roster" >      	
+
+			    <div id="content">
+			  	  <table id="calendar">
+					<!-- ajax outputs -->
+					my roster
+			  	  </table>
+			    </div>
+				<br>
+      		</div> 
+
   	</div>
 </div>
 
 <script>
 
-	//var url = 'http://www.omdbapi.com/?s=hacking';
-
 	var fetchMovies = function (url) {
-
 
 		var addMovies = function(data) {
 			// console.log("data imdbID is: " + data.Search[0].imdbID);
@@ -51,16 +69,16 @@ User ID: <%= @user.id %>
 			$(data.Search).each(function() { 
 				// append to the div with id 'movies' within its 'ul'
 				$('#movies').append(
-					'<li><div>' + this.Title + 
-					'</div><div>' + this.Type + 
-					'</div><div>' + this.Year + 
-					'</div><div>' + this.imdbID + '</div></li>'
+					'<tr><td>' + this.Title + 
+					'</td><td>' + this.Type + 
+					'</td><td>' + this.Year + 
+					'</td><td>' + this.imdbID + '</td></tr>'
 				);
 			});
 		}
 
 		$.ajax({ 
-			url: url + $('form').find('input').val(),
+			url: url + $('#search-form-input').val(),
 			dataType: 'json',
 			type: 'get'
 		}).done(function(data) {
@@ -69,13 +87,91 @@ User ID: <%= @user.id %>
 		});
 	};
 
-	$('form').on('submit', function(event) {
+	$('#search-form').on('submit', function(event) {
 		event.preventDefault();
+		$('#exchange-main').hide();
+		$('#exchange-roster').hide();
+		$('#exchange-search').show();
+		// http://www.mims.com.au/index.php/products/mims-integrated
+		// http://pillbox.nlm.nih.gov/API-documentation.html
 		var url = 'http://www.omdbapi.com/?s=';
 		url += $('#search-form-input').val();
 		console.log(url);
 	 	console.log('submit form');
 	 	fetchMovies(url);
+	})
+
+	$('#news').on('click', function(event) {
+		event.preventDefault();
+		$('#exchange-search').hide();
+		$('#exchange-roster').hide();
+		$('#exchange-main').show();
+	})
+
+
+	// prevent click showing all pages
+	$('#search-drug').on('click', function(event) {
+		event.preventDefault();
+	})
+
+	// $('#news').on('click', function(event) {
+	// 	event.preventDefault();
+	// })
+
+</script>
+
+
+
+
+
+
+<script>
+
+	var fetchRoster = function (url) {
+
+		var addRoster = function(data) {
+			// console.log("data imdbID is: " + data.Search[0].imdbID);
+			$('#calendar').html(' '); // reset each time loaded
+			var i = 0
+			$(data.Search).each(function() { 
+				$('#calendar').append(
+					'<tr><td>' + this.kind + 
+					'</td><td>' + this.etag + 
+					'</td><td>' + this.nextPageToken + 
+					'</td><td>' + this.items[i] + '</td></tr>'
+				);
+				i = i + 1;
+			});
+		}
+
+		$.ajax({ 
+			url: url, //$('#search-roster-input').val()
+			dataType: 'json',
+			type: 'get'
+		}).done(function(data) {
+			console.log(data);
+			addRoster(data);
+		});
+	};
+
+	$('#search-roster').on('submit', function(event) {
+		event.preventDefault();
+		$('#exchange-main').hide();
+		$('#exchange-search').hide();
+		$('#exchange-roster').show();
+		// https://developers.google.com/google-apps/calendar/v3/reference/calendarList/list
+		var url = 'https://www.googleapis.com/calendar/v3/users/me/calendarList';
+		//url += $('#search-form-input').val();
+		console.log(url);
+	 	console.log('submit form');
+	 	fetchRoster(url);
+	})
+
+	$('#roster').on('click', function(event) {
+		event.preventDefault();
+		$('#exchange-search').hide();
+		$('#exchange-main').hide();
+		$('#exchange-roster').show();
 	})
 
 </script>
