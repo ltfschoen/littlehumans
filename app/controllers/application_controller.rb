@@ -20,7 +20,9 @@ class ApplicationController < ActionController::Base
       super
     else
       # redirects to the users show page when logged in
-      user_url(current_user.id)
+
+      users_url
+      #user_url(current_user.id)
     end
   end
 
