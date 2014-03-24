@@ -56,6 +56,8 @@ User ID: <%= @user.id %>
 				<br>
       		</div> 
 
+<!-- 			<iframe src="https://www.google.com/calendar/embed?src=m88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com&ctz=Australia/Sydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+
   	</div>
 </div>
 
@@ -95,7 +97,6 @@ User ID: <%= @user.id %>
 		// http://www.mims.com.au/index.php/products/mims-integrated
 		// http://pillbox.nlm.nih.gov/API-documentation.html
 		var url = 'http://www.omdbapi.com/?s=';
-		url += $('#search-form-input').val();
 		console.log(url);
 	 	console.log('submit form');
 	 	fetchMovies(url);
@@ -108,7 +109,6 @@ User ID: <%= @user.id %>
 		$('#exchange-main').show();
 	})
 
-
 	// prevent click showing all pages
 	$('#search-drug').on('click', function(event) {
 		event.preventDefault();
@@ -119,10 +119,6 @@ User ID: <%= @user.id %>
 	// })
 
 </script>
-
-
-
-
 
 
 <script>
@@ -137,20 +133,28 @@ User ID: <%= @user.id %>
 				$('#calendar').append(
 					'<tr><td>' + this.kind + 
 					'</td><td>' + this.etag + 
-					'</td><td>' + this.nextPageToken + 
-					'</td><td>' + this.items[i] + '</td></tr>'
+					'</td><td>' + this.description + 
+					'</td><td>' + this.location + '</td></tr>'
 				);
 				i = i + 1;
 			});
 		}
 
+		// generate at https://code.google.com/apis/console/
+		var mykey = 'AIzaSyDNxpKs82zmOnqnRjsaS7XmDGkkbk_EibM'; 
+		// generate from settings in google calendar 
+		var calendarid = 'm88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com';
+
 		$.ajax({ 
-			url: url, //$('#search-roster-input').val()
+			url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + calendarid + '/events?key=' + mykey),
+			// url: url, //$('#search-roster-input').val()
 			dataType: 'json',
-			type: 'get'
+			type: 'get',
 		}).done(function(data) {
-			console.log(data);
+			console.log("data is: " + data);
 			addRoster(data);
+		}).error(function(data) {
+			console.log("error is: " + data);
 		});
 	};
 
@@ -160,13 +164,11 @@ User ID: <%= @user.id %>
 		$('#exchange-search').hide();
 		$('#exchange-roster').show();
 		// https://developers.google.com/google-apps/calendar/v3/reference/calendarList/list
-		var url = 'https://www.googleapis.com/calendar/v3/users/me/calendarList';
-		//url += $('#search-form-input').val();
-		console.log(url);
 	 	console.log('submit form');
-	 	fetchRoster(url);
+	 	fetchRoster();
 	})
 
+    // prevent click showing all pages
 	$('#roster').on('click', function(event) {
 		event.preventDefault();
 		$('#exchange-search').hide();
