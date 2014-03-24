@@ -79,6 +79,9 @@ group :test do
 	# added simplecov to see how much code is covered by our tests
 	gem 'simplecov', :require => false
 
+	# testing with fake users in rspec
+	gem 'factory_girl'
+
 end
 
 # Use ActiveModel has_secure_password

@@ -1,4 +1,4 @@
-User ID: <%= @user %>
+User ID: <%= @user.id %>
 
 <!-- Begin Body -->
 <div class="container-user">
@@ -23,6 +23,59 @@ User ID: <%= @user %>
 
               	<!-- /assets/#" -->
               	
+		        <form id="search-form" action="#" method="get">
+		       	  <input id="search-form-input" type="text">
+		     	  <button id="fetch">Search</button>
+		        </form>
+
+			    <div id="content">
+			  	  <ul id="movies">
+					<!-- ajax outputs -->
+			  	  </ul>
+			    </div>
+
       		</div> 
   	</div>
 </div>
+
+<script>
+
+	//var url = 'http://www.omdbapi.com/?s=hacking';
+
+	var fetchMovies = function (url) {
+
+
+		var addMovies = function(data) {
+			// console.log("data imdbID is: " + data.Search[0].imdbID);
+			$('#movies').html(' '); // reset each time loaded
+			$(data.Search).each(function() { 
+				// append to the div with id 'movies' within its 'ul'
+				$('#movies').append(
+					'<li><div>' + this.Title + 
+					'</div><div>' + this.Type + 
+					'</div><div>' + this.Year + 
+					'</div><div>' + this.imdbID + '</div></li>'
+				);
+			});
+		}
+
+		$.ajax({ 
+			url: url + $('form').find('input').val(),
+			dataType: 'json',
+			type: 'get'
+		}).done(function(data) {
+			console.log(data);
+			addMovies(data);
+		});
+	};
+
+	$('form').on('submit', function(event) {
+		event.preventDefault();
+		var url = 'http://www.omdbapi.com/?s=';
+		url += $('#search-form-input').val();
+		console.log(url);
+	 	console.log('submit form');
+	 	fetchMovies(url);
+	})
+
+</script>
