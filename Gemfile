@@ -61,6 +61,26 @@ group :development, :test do
   gem 'dotenv-rails'
 end
 
+gem 'pry-rails'
+
+# testing gems 
+group :test do
+
+	gem 'rspec-rails'
+
+	gem 'capybara'
+
+	# for better tests
+	gem 'shoulda'
+	
+	# mocking and stubbing
+	gem 'mocha'
+
+	# added simplecov to see how much code is covered by our tests
+	gem 'simplecov', :require => false
+
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
