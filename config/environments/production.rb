@@ -81,8 +81,5 @@ LittlehumansApp::Application.configure do
   # http://stackoverflow.com/questions/9095249/undefined-mixin-global-reset-when-deploying-to-heroku
   # added so mixins load when deploy to heroku
   config.assets.precompile += %w( application.css.scss )
- 
-  # google analytics tracker gem 
-  GA.tracker = “UA-49241480-1”
 
 end

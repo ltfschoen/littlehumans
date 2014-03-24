@@ -133,8 +133,7 @@
 <!-- load google google analytics from application_helper.rb -->
 <!-- http://subratrout.com/blog/adding-google-analytics-to-a-rails-app/ -->
 <% if Rails.env.production? %>
-	<%#= google_analytics_link %>
-	<%= analytics_init if Rails.env.production? %>
+	<%= google_analytics_js %>
 <% end %>
 
 </body>
