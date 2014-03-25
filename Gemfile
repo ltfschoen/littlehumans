@@ -61,11 +61,6 @@ group :development, :test do
   gem 'dotenv-rails'
 end
 
-gem 'pry-rails'
-
-# allows binding.pry in rails
-gem 'pry-debugger', '~> 0.2.2'
-
 # testing gems 
 group :test do
 
@@ -84,6 +79,11 @@ group :test do
 
 	# testing with fake users in rspec
 	gem 'factory_girl'
+
+	gem 'pry-rails'
+
+	# allows binding.pry in rails
+	gem 'pry-debugger', '~> 0.2.2'
 
 end
 
