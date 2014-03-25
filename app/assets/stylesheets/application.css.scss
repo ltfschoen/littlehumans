@@ -11,10 +11,16 @@
  *= require_self
  *= require_tree .
  */
+
+* {
+	border: 1px solid black;
+}
+
 @import "bootstrap";
 
 @import 'header'; /* imports SCSS partial _header.css.scss */
 @import 'container'; /* imports SCSS partial _container.css.scss */
+@import 'user'; /* imports SCSS partial _user.css.scss */
 
 @import "mixins";
 

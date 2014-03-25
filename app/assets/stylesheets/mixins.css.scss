@@ -5,6 +5,7 @@ $break-large: 540px;
 #site-container {
   float: left;
   width: 250px;
+
   // media screen (i.e. non-smartphone and displaying on screen)
   // max-width is the browser window including scrollbar
   @media screen and (max-width: $break-small) {

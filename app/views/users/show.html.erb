@@ -6,12 +6,12 @@ User ID: <%= @user.id %>
 
   			<div class="col-sm-2" id="sidebar-user">
       			<ul class="nav nav-pills nav-stacked">
-                  	<!-- <li><a href="#" id="roster">Roster</a></li> -->
-                  	<form id="search-roster" action="#" method="get">
+                  	<li><a href="#" id="roster">Roster</a></li>
+                  	<!-- <form id="search-roster" action="#" method="get">
 		       	  	  <input id="search-roster-input" type="text" style="width: 100%; display:inline-block;" class="form-control" placeholder="Search" autofocus="true">
-		     	      <!-- <button id="fetch">Search Drugs</button> -->
-		     	      <%= submit_tag("Search Roster", class: "btn btn-primary", id: "fetch-roster", style:"width: 100%;") %>
-		            </form>
+		     	      <button id="fetch">Search Drugs</button> 
+		     	      <%#= submit_tag("Search Roster", class: "btn btn-primary", id: "fetch-roster", style:"width: 100%;") %>
+		            </form> -->
           			<li><a href="#" id="births">Births</a></li>
  					<li class="divider-user"></li>
           			<li><a href="#" id="news">News</a></li>
@@ -37,9 +37,12 @@ User ID: <%= @user.id %>
 
         	<div class="col-sm-9" id="exchange-search" >      	
 
-			    <div id="content">
-			  	  <table id="movies">
+			    <div class="table-responsive">
+			      <h1>My Movies</h1><br>
+			  	  <table id="movies-list" class="table table-hover">
 					<!-- ajax outputs -->
+					
+					
 			  	  </table>
 			    </div>
 				<br>
@@ -47,19 +50,23 @@ User ID: <%= @user.id %>
 
       		<div class="col-sm-9" id="exchange-roster" >      	
 
-			    <div id="content">
-			  	  <table id="calendar">
+				<!-- responsive bootstrap 'table' and 'table-responsive' and 'active' css -->
+			    <div class="table-responsive">
+			      <h1>My Roster</h1><br>
+			  	  <table id="calendar-list" class="table table-hover">
 					<!-- ajax outputs -->
-					my roster
+					
+
 			  	  </table>
 			    </div>
 				<br>
       		</div> 
 
-<!-- 			<iframe src="https://www.google.com/calendar/embed?src=m88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com&ctz=Australia/Sydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
-
   	</div>
 </div>
+
+<div id="google-key"><%= @google_key %></div>
+<div id="google-simple"><%= @google_simple %></div>
 
 <script>
 
@@ -67,10 +74,11 @@ User ID: <%= @user.id %>
 
 		var addMovies = function(data) {
 			// console.log("data imdbID is: " + data.Search[0].imdbID);
-			$('#movies').html(' '); // reset each time loaded
+			$('#movies-list').html('');
+			$('#movies-list').html('<tr class="info"><td>Title</td><td>Type</td><td>Year</td><td>imdbID</td></tr>'); // reset each time loaded
 			$(data.Search).each(function() { 
 				// append to the div with id 'movies' within its 'ul'
-				$('#movies').append(
+				$('#movies-list').append(
 					'<tr><td>' + this.Title + 
 					'</td><td>' + this.Type + 
 					'</td><td>' + this.Year + 
@@ -120,18 +128,28 @@ User ID: <%= @user.id %>
 
 </script>
 
-
 <script>
 
 	var fetchRoster = function (url) {
 
 		var addRoster = function(data) {
-			// console.log("data imdbID is: " + data.Search[0].imdbID);
-			$('#calendar').html(' '); // reset each time loaded
+			console.log("data summary is: " + data.summary);
+			console.log("data description is: " + data.items[0].description);
+			$('#calendar-list').html('');
+			$('#calendar-list').html('<tr class="info"><td>Title</td><td>Type</td><td>Year</td><td>imdbID</td></tr>'); // reset each time loaded
 			var i = 0
-			$(data.Search).each(function() { 
-				$('#calendar').append(
-					'<tr><td>' + this.kind + 
+			var cycle_class = "active";
+			$(data).each(function() { 
+				// cycles between active and non-active bootstrap css class
+				// if (cycle_class == "active") {
+				// 	cycle_class = "";
+				// } else {
+				// 	cycle_class = "active";
+				// }
+				$('#calendar-list').append(
+					/// add cycle colours with bootstrap after figure how to escape char
+					'<tr class="' + cycle_class + '"><td>' + 
+					'<tr><td>' + this.items[0].description + 
 					'</td><td>' + this.etag + 
 					'</td><td>' + this.description + 
 					'</td><td>' + this.location + '</td></tr>'
@@ -140,33 +158,34 @@ User ID: <%= @user.id %>
 			});
 		}
 
-		// generate at https://code.google.com/apis/console/
-		var mykey = 'AIzaSyDNxpKs82zmOnqnRjsaS7XmDGkkbk_EibM'; 
-		// generate from settings in google calendar 
-		var calendarid = 'm88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com';
+		// ajax request for google calendar via calendar method in users controller
+		// purpose is alternative to direct ajax request that reveals google security keys
+		var options = {
+		  url: '/users/calendar', 
+		  type: 'get',
+		  dataType: 'json'
+		}
 
-		$.ajax({ 
-			url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + calendarid + '/events?key=' + mykey),
-			// url: url, //$('#search-roster-input').val()
-			dataType: 'json',
-			type: 'get',
-		}).done(function(data) {
-			console.log("data is: " + data);
-			addRoster(data);
-		}).error(function(data) {
-			console.log("error is: " + data);
+	    $.ajax(options).done(function(calendar) {
+		  console.log('ajax calendar success');
+		  console.log(calendar);
+		  // after get calendar from controller server side
+		}).done(function(calendar_data) { // success handler
+			console.log("data is: " + calendar_data);
+			addRoster(calendar_data);
+		}).error(function(calendar_data) { // failure handler
+			console.log("error is: " + calendar_data);
 		});
+
 	};
 
-	$('#search-roster').on('submit', function(event) {
-		event.preventDefault();
+	// loads OAuth2 to allow connection to Google APIs (i.e. Google Calendar)
+	function loadGoogleAPI() {
 		$('#exchange-main').hide();
 		$('#exchange-search').hide();
 		$('#exchange-roster').show();
-		// https://developers.google.com/google-apps/calendar/v3/reference/calendarList/list
-	 	console.log('submit form');
-	 	fetchRoster();
-	})
+		fetchRoster();
+	};
 
     // prevent click showing all pages
 	$('#roster').on('click', function(event) {
@@ -174,6 +193,9 @@ User ID: <%= @user.id %>
 		$('#exchange-search').hide();
 		$('#exchange-main').hide();
 		$('#exchange-roster').show();
-	})
+	});
 
 </script>
+
+<!-- https://developers.google.com/api-client-library/javascript/samples/samples#LoadinganAPIandMakingaRequest -->
+<script src="https://apis.google.com/js/client.js?onload=loadGoogleAPI"></script>

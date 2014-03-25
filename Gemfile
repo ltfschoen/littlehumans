@@ -63,6 +63,9 @@ end
 
 gem 'pry-rails'
 
+# allows binding.pry in rails
+gem 'pry-debugger', '~> 0.2.2'
+
 # testing gems 
 group :test do
 
@@ -83,6 +86,8 @@ group :test do
 	gem 'factory_girl'
 
 end
+
+gem 'httparty'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

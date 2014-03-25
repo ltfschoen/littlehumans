@@ -13,8 +13,14 @@ LittlehumansApp::Application.routes.draw do
 							   :passwords => 'users/passwords'
              				 }
 
-  resources :users, :only => [:index, :show, :edit, :update]
-  
+  # resources :users, :only => [:index, :show, :edit, :update]
+
+  resources :users do
+  	collection do
+  		get :calendar # google calendar
+  	end
+  end
+
   get '/dashboard' => "users#dashboard", as: :dashboard
 
   devise_scope :user do
