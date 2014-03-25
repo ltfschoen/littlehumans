@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   	google_simple = ENV['GOOGLE_SIMPLE'] # generate at https://code.google.com/apis/console/
   	google_calendarid = 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com' # generate from settings in google calendar 
 
-	url = 'https://www.googleapis.com/calendar/v3/calendars/' + google_calendarid + '/events?key=' + google_simple + '&access_token=' + google_key
+	url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}"
 
     @url_resp = HTTParty.get(url) 
     logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
