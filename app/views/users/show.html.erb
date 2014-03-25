@@ -202,6 +202,7 @@ User ID: <%= @user.id %>
 		}).done(function(calendar_data) { // success handler
 			console.log("data is: " + calendar_data);
 			addRoster(calendar_data);
+			//setTimeout(loadGoogleAPI, 1000); // schedule next request after 5s
 		}).error(function(calendar_data) { // failure handler
 			console.log("error is: " + calendar_data);
 		});
@@ -222,6 +223,7 @@ User ID: <%= @user.id %>
 		$('#exchange-search').hide();
 		$('#exchange-main').hide();
 		$('#exchange-roster').show();
+		fetchRoster();
 	});
 
 </script>
