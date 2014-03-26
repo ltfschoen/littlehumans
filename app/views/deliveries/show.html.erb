@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name baby:</strong>
+  <%= @delivery.name_baby %>
+</p>
+
+<p>
+  <strong>Time born:</strong>
+  <%= @delivery.time_born %>
+</p>
+
+<p>
+  <strong>Name location born:</strong>
+  <%= @delivery.name_location_born %>
+</p>
+
+<%= link_to 'Edit', edit_delivery_path(@delivery) %> |
+<%= link_to 'Back', deliveries_path %>

@@ -1,6 +1,9 @@
 LittlehumansApp::Application.routes.draw do
 
-  
+  resources :deliveries
+
+  resources :rosters
+
   get "static_pages/about_us"
   get "static_pages/contact_us"
   get "static_pages/privacy"
