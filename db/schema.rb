@@ -11,10 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322032030) do
+ActiveRecord::Schema.define(version: 20140326041535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "deliveries", force: true do |t|
+    t.string   "name_baby"
+    t.datetime "time_born"
+    t.string   "name_location_born"
+    t.integer  "user_id"
+    t.integer  "roster_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rosters", force: true do |t|
+    t.string   "name_shift"
+    t.string   "name_location_hospital"
+    t.string   "name_location_shift"
+    t.datetime "time_shift_start"
+    t.datetime "time_shift_end"
+    t.decimal  "time_shift_duration"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -34,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140322032030) do
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
+    t.string   "name_location_hospital"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

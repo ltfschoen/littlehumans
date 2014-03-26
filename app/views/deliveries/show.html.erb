@@ -1,0 +1,38 @@
+<br><br><br><br>
+
+ <div class="delivery-links">
+ 	<%= link_to 'Back', deliveries_path, class: "btn btn-default btn-lg active" %>
+ </div>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Baby Details</h1>
+
+<table id="deliveries-list" class="table table-hover">
+  <thead>
+    <tr>
+      <th class="delivery-centred">Baby Name</th>
+      <th class="delivery-centred">DOB</th>
+      <th class="delivery-centred">Birth Location</th>
+      <th class="delivery-centred">Midwife</th>
+
+        <th></th>
+
+    </tr>
+  </thead>
+
+  <tbody id="tbody">
+
+     <tr>
+        <td><%= @delivery.name_baby %></td>
+        <td><%= @delivery.time_born %></td>
+        <td><%= @delivery.name_location_born %></td>
+        <td><%= @delivery.user.name if @delivery.user %></td>
+
+        <td><%= link_to 'Edit', edit_delivery_path(@delivery), class: "btn btn-default" %></td>
+        <td><%= link_to 'Destroy', @delivery, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %></td>
+
+      </tr>
+
+  </tbody>
+</table>

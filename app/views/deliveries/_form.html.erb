@@ -1,0 +1,29 @@
+<%= form_for(@delivery) do |f| %>
+  <% if @delivery.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@delivery.errors.count, "error") %> prohibited this delivery from being saved:</h2>
+
+      <ul>
+      <% @delivery.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name_baby %><br>
+    <%= f.text_field :name_baby %>
+  </div>
+  <div class="field">
+    <%= f.label :time_born %><br>
+    <%= f.datetime_select :time_born %>
+  </div>
+  <div class="field">
+    <%= f.label :name_location_born %><br>
+    <%= f.text_field :name_location_born %>
+  </div>
+  <div class="actions">
+    <%= f.submit("Update", data: { disable_with: "Please wait.." }, class: "btn btn-success") %>
+  </div>
+<% end %>

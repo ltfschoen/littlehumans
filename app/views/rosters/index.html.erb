@@ -1,0 +1,37 @@
+<h1>Listing rosters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name shift</th>
+      <th>Name hospital</th>
+      <th>Name location</th>
+      <th>Time shift start</th>
+      <th>Time shift end</th>
+      <th>Time shift duration</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rosters.each do |roster| %>
+      <tr>
+        <td><%= roster.name_shift %></td>
+        <td><%= roster.name_hospital %></td>
+        <td><%= roster.name_location %></td>
+        <td><%= roster.time_shift_start %></td>
+        <td><%= roster.time_shift_end %></td>
+        <td><%= roster.time_shift_duration %></td>
+        <td><%= link_to 'Show', roster %></td>
+        <td><%= link_to 'Edit', edit_roster_path(roster) %></td>
+        <td><%= link_to 'Destroy', roster, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Roster', new_roster_path %>

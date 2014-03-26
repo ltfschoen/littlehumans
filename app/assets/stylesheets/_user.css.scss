@@ -1,12 +1,23 @@
 #calendar-list {
-	
 	font-weight: bold;
 	overflow-x: auto; // allows user to scroll to right of the table width shrunk on mobile devices
-
 }
 
 #movies-list {
-
 	font-weight: bold;
+}
 
+.tweets {
+	opacity: 0.8;
+	background-color: #DDEEBB;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.tweet-image {
+	opacity: 1.0;
+	position: relative;
+	z-index: 2;
+	border-radius: 300px;
+	float: right;
 }

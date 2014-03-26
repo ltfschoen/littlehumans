@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name shift:</strong>
+  <%= @roster.name_shift %>
+</p>
+
+<p>
+  <strong>Name hospital:</strong>
+  <%= @roster.name_hospital %>
+</p>
+
+<p>
+  <strong>Name location:</strong>
+  <%= @roster.name_location %>
+</p>
+
+<p>
+  <strong>Time shift start:</strong>
+  <%= @roster.time_shift_start %>
+</p>
+
+<p>
+  <strong>Time shift end:</strong>
+  <%= @roster.time_shift_end %>
+</p>
+
+<p>
+  <strong>Time shift duration:</strong>
+  <%= @roster.time_shift_duration %>
+</p>
+
+<%= link_to 'Edit', edit_roster_path(@roster) %> |
+<%= link_to 'Back', rosters_path %>

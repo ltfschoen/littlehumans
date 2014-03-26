@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_shift: MyString
+  name_hospital: MyString
+  name_location: MyString
+  time_shift_start: 2014-03-26 14:40:05
+  time_shift_end: 2014-03-26 14:40:05
+  time_shift_duration: 9.99
+
+two:
+  name_shift: MyString
+  name_hospital: MyString
+  name_location: MyString
+  time_shift_start: 2014-03-26 14:40:05
+  time_shift_end: 2014-03-26 14:40:05
+  time_shift_duration: 9.99
