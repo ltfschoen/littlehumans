@@ -24,13 +24,29 @@ User ID: <%= @user.id %>
       		</div>  
 
       		<div class="col-sm-9" id="exchange-main">
-              	<h1>News 1</h1>
-                <img src="//placehold.it/300x300/EEEEEE/EEEEEE/assets/#" style="height:300px;width:300px;" class="img-circle pull-right">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium
-              
+
+              	<h2><a href="https://twitter.com/<%= @tweet[0].user.screen_name %>" target="new">@<%= @tweet[0].user.screen_name %> News</a></h2>
+                <img src="//placehold.it/300x300/EEEEEE/EEEEEE/assets/#" style="height:300px;width:300px;" class="img-circle-small pull-right">
+				<%#= @tweet %>
+				<!-- <div><%#= @tweet[1].text %></div> -->
+				<%#= @tweet.text %>
+				<% t = 0 %>
+				<% @tweet.each do |tweet| %>
+				<div><%= tweet.text %></div><br>
+				<% t = t + 1 %>
+				<% end %>
+				<!-- http://t -->
+
               	<hr class="col-sm-12">
-              
-              	<h2>News 2</h2>
-				Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium
+
+              	<h2><a href="https://twitter.com/<%= @tweet2[0].user.screen_name %>" target="new">@<%= @tweet2[0].user.screen_name %> News</a></h2>
+				<% t = 0 %>
+				<% @tweet2.each do |tweet| %>
+				<div><%= tweet.text %></div><br>
+				<% t = t + 1 %>
+				<% end %>
+				<!-- http://t -->
+
 			
               	<!-- /assets/#" -->
         	</div>

@@ -87,7 +87,11 @@ group :test do
 
 end
 
+# allows access to Google Calendar
 gem 'httparty'
+
+# allows access to Twitter Feeds
+gem 'twitter', '~> 5.8.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

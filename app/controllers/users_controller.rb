@@ -13,6 +13,20 @@ class UsersController < ApplicationController
   def show
   	@user = current_user
 
+	# get tweets 
+	@client = Twitter::REST::Client.new do |config| 
+	  config.consumer_key        = ENV['TWITTER_KEY']
+	  config.consumer_secret     = ENV['TWITTER_SECRET']
+	  config.access_token 		 = ENV['TWITTER_ACCESS_TOKEN']
+	  config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+	end
+
+    # get latest 5 tweets from twitter username 'MidwivesACM'
+	@tweet = @client.user_timeline("MidwivesACM", {:count => 3, :include_rts => true})
+ 
+    #binding.pry
+    @tweet2 = @client.user_timeline("midwifeorg", {:count => 3, :include_rts => true})
+   logger.info("twitter_user_timeline response is *** #{@tweet2.to_json}") # display in rails console
   end
 
   def dashboard
