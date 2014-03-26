@@ -40,16 +40,40 @@ class UsersController < ApplicationController
   	google_simple = ENV['GOOGLE_SIMPLE'] # generate at https://code.google.com/apis/console/
   	google_calendarid = 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com' # generate from settings in google calendar 
 
-	url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}"
+ 	if params[:filter] == 'get'
 
-    @url_resp = HTTParty.get(url) 
-    logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
-    #binding.pry
+		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}"
 
-    respond_to do |format|
-        format.json { render json: @url_resp.to_json }
-        format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
+	    @url_resp = HTTParty.get(url) 
+	    logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
+	    #binding.pry
+
+	    respond_to do |format|
+	        format.json { render json: @url_resp.to_json }
+	        format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
+	    end
+
+  	elsif params[:filter] == 'post' && params[:new_status] == 'cancelled'
+
+	new_status = params[:new_status]
+		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+
+	    @url_resp = HTTParty.post(url) 
+	    logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
+	    #binding.pry
+
+	    respond_to do |format|
+	        format.json { render json: @url_resp.to_json }
+	        format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
+	    end
+
+	else
+
+		params[:filter] == nil
+
     end
+
+
   end
 
   # GET /users/new

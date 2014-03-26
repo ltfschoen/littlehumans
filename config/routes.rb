@@ -23,6 +23,7 @@ LittlehumansApp::Application.routes.draw do
   	resources :deliveries
   	collection do
   		get :calendar # google calendar
+  		post :calendar # google calendar
   	end
   end
 
