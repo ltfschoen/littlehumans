@@ -24,35 +24,30 @@ User ID: <%= @user.id %>
       		</div>  
 
       		<div class="col-sm-9" id="exchange-main">
-
+				<br>
               	<h2><a href="https://twitter.com/<%= @tweet[0].user.screen_name %>" target="new">@<%= @tweet[0].user.screen_name %> News</a></h2>
-                <img src="//placehold.it/300x300/EEEEEE/EEEEEE/assets/#" style="height:300px;width:300px;" class="img-circle-small pull-right">
-				<%#= @tweet %>
-				<!-- <div><%#= @tweet[1].text %></div> -->
-				<%#= @tweet.text %>
+                <img src="http://twitteling.com/wp-content/uploads/2012/08/gopego_Free-Baby-wallpaper.jpg" style="height:240px;width:640px;" class="tweet-image">
 				<% t = 0 %>
 				<% @tweet.each do |tweet| %>
-				<div><%= tweet.text %></div><br>
+				<div class="tweets">
+					<%= auto_link(tweet.text).html_safe %>
+				</div><br>
 				<% t = t + 1 %>
 				<% end %>
-				<!-- http://t -->
-
-              	<hr class="col-sm-12">
 
               	<h2><a href="https://twitter.com/<%= @tweet2[0].user.screen_name %>" target="new">@<%= @tweet2[0].user.screen_name %> News</a></h2>
 				<% t = 0 %>
 				<% @tweet2.each do |tweet| %>
-				<div><%= tweet.text %></div><br>
+				<div class="tweets" class="bg-primary bg-primary_ls_round">
+					<%= raw auto_link(tweet.text) %> 
+				</div><br>
 				<% t = t + 1 %>
 				<% end %>
-				<!-- http://t -->
 
-			
-              	<!-- /assets/#" -->
         	</div>
 
         	<div class="col-sm-9" id="exchange-search" >      	
-
+				<br>
 			    <div class="table-responsive">
 			      <h1>My Movies</h1><br>
 			  	  <table id="movies-list" class="table table-hover">

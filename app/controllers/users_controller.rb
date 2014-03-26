@@ -1,6 +1,7 @@
 require 'httparty'
 
 class UsersController < ApplicationController
+  include Twitter::Autolink # allows twitter-text gem to work. also added to helper/application_helper.rb
 
   # GET /users
   # GET /users.json
@@ -26,7 +27,8 @@ class UsersController < ApplicationController
  
     #binding.pry
     @tweet2 = @client.user_timeline("midwifeorg", {:count => 3, :include_rts => true})
-   logger.info("twitter_user_timeline response is *** #{@tweet2.to_json}") # display in rails console
+    logger.info("twitter_user_timeline response is *** #{@tweet2.to_json}") # display in rails console
+
   end
 
   def dashboard
