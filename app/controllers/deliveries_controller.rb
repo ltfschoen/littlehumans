@@ -4,7 +4,19 @@ class DeliveriesController < ApplicationController
   # GET /deliveries
   # GET /deliveries.json
   def index
-    @deliveries = Delivery.all
+  	
+ 	if params[:filter] == 'all'
+    	@deliveries = Delivery.all 
+    	@all = true
+  	elsif params[:filter] == 'my'
+  		@deliveries = current_user.deliveries.all if current_user.deliveries
+		@all = false
+	else
+		@deliveries = Delivery.all
+		@all = true
+		params[:filter] == nil
+    end
+     		
   end
 
   # GET /deliveries/1
@@ -14,7 +26,7 @@ class DeliveriesController < ApplicationController
 
   # GET /deliveries/new
   def new
-    @delivery = Delivery.new
+    @delivery = current_user.deliveries.new
   end
 
   # GET /deliveries/1/edit
@@ -24,7 +36,7 @@ class DeliveriesController < ApplicationController
   # POST /deliveries
   # POST /deliveries.json
   def create
-    @delivery = Delivery.new(delivery_params)
+    @delivery = current_user.deliveries.new(delivery_params)
 
     respond_to do |format|
       if @delivery.save
@@ -64,7 +76,7 @@ class DeliveriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_delivery
-      @delivery = Delivery.find(params[:id])
+      @delivery = current_user.deliveries.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

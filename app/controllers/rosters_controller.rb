@@ -4,7 +4,7 @@ class RostersController < ApplicationController
   # GET /rosters
   # GET /rosters.json
   def index
-    @rosters = Roster.all
+    @rosters = current_user.rosters.all
   end
 
   # GET /rosters/1
@@ -14,7 +14,7 @@ class RostersController < ApplicationController
 
   # GET /rosters/new
   def new
-    @roster = Roster.new
+    @roster = current_user.rosters.new
   end
 
   # GET /rosters/1/edit
@@ -24,7 +24,7 @@ class RostersController < ApplicationController
   # POST /rosters
   # POST /rosters.json
   def create
-    @roster = Roster.new(roster_params)
+    @roster = current_user.rosters.new(roster_params)
 
     respond_to do |format|
       if @roster.save
@@ -64,7 +64,7 @@ class RostersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_roster
-      @roster = Roster.find(params[:id])
+      @roster = current_user.rosters.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

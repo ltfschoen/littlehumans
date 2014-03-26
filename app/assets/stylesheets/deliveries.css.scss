@@ -1,3 +1,53 @@
 // Place all the styles related to the Deliveries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$break-small: 100px;
+$break-medium: 330px;
+$break-large: 540px;
+
+#deliveries-list {
+
+	font-weight: bold;
+
+	@media screen and (max-width: $break-small) {
+        overflow-x: visible;
+    }
+
+    @media screen and (max-width: $break-medium) {
+        overflow-x: visible;
+    }
+
+    @media screen and (min-width: $break-large) {
+		overflow-x: auto; // allows user to scroll to right of the table width shrunk on mobile devices
+    }
+	
+
+}
+
+// .delivery-link-home {
+//         display: inline;
+//         width: 10%;
+// }
+
+.delivery-links {
+
+    @media screen and (max-width: $break-small) {
+        display: inline;
+    }
+
+    @media screen and (max-width: $break-medium) {
+        display: inline;
+    }
+
+    @media screen and (min-width: $break-large) {
+		display: inline-block;
+    }
+
+}
+
+.delivery-centred {
+
+	text-align: middle;
+
+}

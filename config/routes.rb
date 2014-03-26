@@ -19,6 +19,8 @@ LittlehumansApp::Application.routes.draw do
   # resources :users, :only => [:index, :show, :edit, :update]
 
   resources :users do
+  	resources :rosters
+  	resources :deliveries
   	collection do
   		get :calendar # google calendar
   	end
