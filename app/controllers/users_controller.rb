@@ -56,9 +56,11 @@ class UsersController < ApplicationController
   	elsif params[:filter] == 'post' && params[:new_status] == 'cancelled'
 
 	new_status = params[:new_status]
-		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+	event_id = params[:event_id]
+		#url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events/#{event_id}?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
 
-	    @url_resp = HTTParty.post(url) 
+	    @url_resp = HTTParty.post(url).parsed_response
 	    logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
 	    #binding.pry
 

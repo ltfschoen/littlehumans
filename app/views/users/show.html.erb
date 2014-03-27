@@ -210,7 +210,7 @@ var updateRoster = function (url) {
 	var new_status = "cancelled";
 
 	var options = {
-	  url: '/users/calendar?filter=post&new_status=' + new_status, 
+	  url: '/users/calendar?filter=post&new_status=' + new_status + '&event_id=' + url, 
 	  type: 'post', // http post request is performed in controller
 	  dataType: 'json',
 	  data: { status: "cancelled" }
