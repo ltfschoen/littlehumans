@@ -1,7 +1,7 @@
 <br><br><br>
 
  <div class="delivery-links">
- 	<%= link_to 'Home', user_path(current_user), class: "btn btn-default btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
+ 	<%= link_to 'Back', user_path(current_user), class: "btn btn-default btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
  </div>
 
  <div class="delivery-links">
@@ -28,7 +28,7 @@
       <th class="delivery-centred">Baby Name</th>
       <th class="delivery-centred">DOB</th>
       <th class="delivery-centred">Birth Location</th>
-      <th class="delivery-centred">Midwife</th>
+      <th class="delivery-centred">Midwife & User ID</th>
       <% if @all == false %>
         <th></th>
       <% end %>
@@ -44,12 +44,14 @@
         <td><%= delivery.name_baby %></td>
         <td><%= delivery.time_born %></td>
         <td><%= delivery.name_location_born %></td>
-        <td><%= delivery.user.name if delivery.user %></td>
+        <td><%= delivery.user.name if delivery.user %> <%= delivery.user.id if delivery.user %></td>
         <% if @all == false %> <!-- only let midwife user who created baby make changes -->
-        	<td><%= link_to 'Destroy', delivery, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        	<td><%= link_to 'Destroy', delivery, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %></td>
         <% end %>
+
       </tr>
     <% end %>
+    User ID <%= current_user.id if current_user %>
   </tbody>
 </table>
 

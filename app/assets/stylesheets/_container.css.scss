@@ -1,7 +1,9 @@
-// body {
-// 	background: black url("/images/shutterstock_162860348_high.jpg") no-repeat fixed center;
-// 	background-size: cover;
-// }
+.show_background {
+	background: black url("/images/shutterstock_162860348_high.jpg") no-repeat fixed center; 
+	background-size: cover;
+	opacity:0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+}
 
 #container { 
 	position:relative;	/* This fixes the IE7 overflow hidden bug */

@@ -1,4 +1,5 @@
 require 'httparty'
+require 'google_calendar' 
 
 class UsersController < ApplicationController
   include Twitter::Autolink # allows twitter-text gem to work. also added to helper/application_helper.rb
@@ -55,10 +56,21 @@ class UsersController < ApplicationController
 
   	elsif params[:filter] == 'post' && params[:new_status] == 'cancelled'
 
-	new_status = params[:new_status]
-		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+		new_status = params[:new_status]
+		event_id = params[:event_id]
 
-	    @url_resp = HTTParty.post(url) 
+		# # auth with to calendar using google_calendar gem - not working yet
+		# @cal = Google::Calendar.new(:username => ENV['G_USER'],
+	    #                           :password => ENV['G_PASS'],
+	    #                           :app_name => 'Littlehumans')
+
+		# POST request 
+		#url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+
+		# PATCH request
+		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events/#{event_id}?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+
+	    @url_resp = HTTParty.patch(url)#.parsed_response
 	    logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
 	    #binding.pry
 

@@ -1,4 +1,4 @@
-User ID: <%= @user.id %>
+<br><br>
 
 <!-- Begin Body -->
 <div class="container-user">
@@ -7,10 +7,10 @@ User ID: <%= @user.id %>
   			<div class="col-sm-2" id="sidebar-user">
   				<br><br>
       			<ul class="nav nav-pills nav-stacked">
-                  	<li><a href="#" id="roster">Roster</a></li>
-          			<li><a href="/deliveries" id="births">Births</a></li>
+                  	<li><a href="#" id="roster" class="btn btn-default btn-lg responsive">Roster</a></li>
+          			<li><a href="/deliveries" id="births"class="btn btn-default btn-lg responsive">Births</a></li>
  					<li class="divider-user"></li>
-          			<li><a href="#" id="news">News</a></li>
+          			<li><a href="#" id="news"class="btn btn-default btn-lg responsive">Tweets</a></li>
           			<form id="search-form" action="#" method="get">
 		       	  	  <input id="search-form-input" type="text" style="width: 100%; display:inline-block;" class="form-control" placeholder="Search" autofocus="true">
 		     	      <%= submit_tag("Search Drugs", class: "btn btn-info", id: "fetch-drugs", style:"width: 100%;") %>
@@ -20,6 +20,7 @@ User ID: <%= @user.id %>
 
       		<div class="col-sm-9" id="exchange-main">
 				<br>
+				<h1>Latest Midwifery Tweets</h1><br>
               	<h2><a href="https://twitter.com/<%= @tweet[0].user.screen_name %>" target="new">@<%= @tweet[0].user.screen_name %> News</a></h2>
                 <img src="http://twitteling.com/wp-content/uploads/2012/08/gopego_Free-Baby-wallpaper.jpg" style="height:240px;width:640px;" class="tweet-image">
 				<% t = 0 %>
@@ -33,7 +34,7 @@ User ID: <%= @user.id %>
               	<h2><a href="https://twitter.com/<%= @tweet2[0].user.screen_name %>" target="new">@<%= @tweet2[0].user.screen_name %> News</a></h2>
 				<% t = 0 %>
 				<% @tweet2.each do |tweet| %>
-				<div class="tweets" class="bg-primary bg-primary_ls_round">
+				<div class="tweets2" class="bg-primary bg-primary_ls_round">
 					<%= raw auto_link(tweet.text) %> 
 				</div><br>
 				<% t = t + 1 %>
@@ -58,7 +59,8 @@ User ID: <%= @user.id %>
 				<!-- responsive bootstrap 'table' and 'table-responsive' and 'active' css -->
 			    <div class="table-responsive">
 			    	<br>
-			      <h1>My Roster</h1><br>
+			      <div style="inline"><h1>My Roster</h1></div>&nbsp;<div style="inline"><a href="/rosters" id="roster" class="btn btn-default btn-lg responsive">Edit Roster</a></div>
+			      <br><br>
 			      <a href="https://www.google.com/calendar/embed?src=m88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com&ctz=Australia/Sydney" target="new">Test Public Google Calendar</a> 
 
 			      <a href="https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com" target="new">View JSON</a>
@@ -141,7 +143,7 @@ var fetchRoster = function (url) {
 	// https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com
 	var addRoster = function(data) {
 		$('#calendar-list').html(''); // reset DOM value to empty
-		$('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Start</td><td>Finish</td><td>Duration</td><td>Status</td></tr>'); // reset each time loaded
+		$('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Start</td><td>Finish</td><td>Duration</td><td>Status</td><td></td></tr>'); // reset each time loaded
 		console.log(data);
 		$(data.items).each(function() { 
 			$('#calendar-list').append(
@@ -155,7 +157,10 @@ var fetchRoster = function (url) {
 				'</td><td>' + (this.start.dateTime ? this.start.dateTime : this.start.date) +
 				'</td><td>' + (this.end.dateTime ? this.end.dateTime : this.end.date) +
 				'</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
-				'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" id="' + this.id + '">' + this.status + '</a></td></tr>'
+				'</td><td id="' + this.id + '">' + this.status +  
+				'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Cancel</a></td></tr>'
+
+
 			);
 		});  // each data item
 	}; // addRoster
@@ -184,9 +189,9 @@ var fetchRoster = function (url) {
 
 // loads OAuth2 to allow connection to Google APIs (i.e. Google Calendar)
 function loadGoogleAPI() {
-	$('#exchange-main').hide();
+	$('#exchange-main').show();
 	$('#exchange-search').hide();
-	$('#exchange-roster').show();
+	$('#exchange-roster').hide();
 	fetchRoster();
 };
 
@@ -210,7 +215,7 @@ var updateRoster = function (url) {
 	var new_status = "cancelled";
 
 	var options = {
-	  url: '/users/calendar?filter=post&new_status=' + new_status, 
+	  url: '/users/calendar?filter=post&new_status=' + new_status + '&event_id=' + url, 
 	  type: 'post', // http post request is performed in controller
 	  dataType: 'json',
 	  data: { status: "cancelled" }

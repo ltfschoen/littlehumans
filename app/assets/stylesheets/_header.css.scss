@@ -26,6 +26,16 @@
 
 .social { display:none; }
 
+.devise {
+	opacity:0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+}
+
+.devise:hover {
+	opacity:1.0;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+} 
+
 #tw, #fb, #go { display:block;
 	vertical-align: center; 
 	position: relative; 
@@ -45,8 +55,8 @@
     display:block;
     margin-top: 100px;
     height:auto;
-    -webkit-transition-duration: 2s;
-    -moz-transition-duration: 2s;
-    -o-transition-duration: 2s;
-    transition-duration: 2s;
+    -webkit-transition-duration: 3s;
+    -moz-transition-duration: 3s;
+    -o-transition-duration: 3s;
+    transition-duration: 3s;
 }

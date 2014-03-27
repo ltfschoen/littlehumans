@@ -96,6 +96,9 @@ gem 'twitter', '~> 5.8.0'
 # allows extract URL, hashtag from tweets
 gem 'twitter-text'
 
+# gem to modify Google Calendar but requires logging in
+gem 'google_calendar'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
