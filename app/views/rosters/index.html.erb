@@ -1,37 +1,5 @@
-<h1>Listing rosters</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name shift</th>
-      <th>Name hospital</th>
-      <th>Name location</th>
-      <th>Time shift start</th>
-      <th>Time shift end</th>
-      <th>Time shift duration</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @rosters.each do |roster| %>
-      <tr>
-        <td><%= roster.name_shift %></td>
-        <td><%= roster.name_hospital %></td>
-        <td><%= roster.name_location %></td>
-        <td><%= roster.time_shift_start %></td>
-        <td><%= roster.time_shift_end %></td>
-        <td><%= roster.time_shift_duration %></td>
-        <td><%= link_to 'Show', roster %></td>
-        <td><%= link_to 'Edit', edit_roster_path(roster) %></td>
-        <td><%= link_to 'Destroy', roster, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Roster', new_roster_path %>
+<br><br><br><br>
+<%= link_to "Back", :back, class: "btn btn-info" %>
+<br><br>
+<iframe src="https://www.google.com/calendar/embed?height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=m88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com&amp;color=%232952A3&amp;ctz=Australia%2FSydney" style=" border-width:0 " width="400" height="300" frameborder="0" scrolling="no"></iframe>

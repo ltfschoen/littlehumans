@@ -10,8 +10,13 @@
     <%= yield(:head) %>
   <% end %>
   <%= csrf_meta_tags %>
+
+  <% if controller_name == 'sessions' %>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <% end %>
+
 </head>
-<body id="site-container">
+<body id="site-container" class="<%= 'show_background' if controller_name == 'sessions' %>">
 
 <header id="header">
 
@@ -79,13 +84,6 @@
 
 	</nav>
 
-  <% if notice %>
-    <p class="alert alert-notice"><%= notice %></p>
-  <% end %>
-  <% if alert %>
-    <p class="alert alert-error"><%= alert %></p>
-  <% end %>
-
 </header>
 
 <div id="container">
@@ -94,9 +92,16 @@
 
 </div>
 
-<footer>
+<footer style="text-align: center;">
 
   <%= render partial:'/shared/footer' %>
+
+  <% if notice %>
+    <p class="alert alert-notice"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-error"><%= alert %></p>
+  <% end %>
 
 </footer>
 
