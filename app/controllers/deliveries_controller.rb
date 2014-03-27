@@ -14,7 +14,6 @@ class DeliveriesController < ApplicationController
 	else
 		@deliveries = Delivery.all
 		@all = true
-		params[:filter] == nil
     end
      		
   end
