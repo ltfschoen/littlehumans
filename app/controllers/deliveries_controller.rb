@@ -14,6 +14,7 @@ class DeliveriesController < ApplicationController
 	else
 		@deliveries = Delivery.all
 		@all = true
+		
     end
      		
   end
