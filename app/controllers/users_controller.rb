@@ -13,6 +13,13 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+
+    # added filter to have access to array of cancelled events
+    @rosters = Roster.where("name_shift IS NOT NULL").select("distinct name_shift").all
+    @cancelled_array = @rosters.map(&:name_shift)
+	
+    logger.info("cancelled_array response is *** #{@cancelled_array}")
+
   	@user = current_user
 
 	# get tweets 
@@ -28,7 +35,7 @@ class UsersController < ApplicationController
  
     #binding.pry
     @tweet2 = @client.user_timeline("midwifeorg", {:count => 3, :include_rts => true})
-    logger.info("twitter_user_timeline response is *** #{@tweet2.to_json}") # display in rails console
+    #logger.info("twitter_user_timeline response is *** #{@tweet2.to_json}") # display in rails console
 
   end
 
