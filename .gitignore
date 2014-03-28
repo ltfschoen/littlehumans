@@ -36,12 +36,15 @@ pickle-email-*.html
 .project
 config/initializers/secret_token.rb
 
-* Ignore the .env file as it contains secret keys for twitter, devise, rails production
+# Ignore the .env file as it contains secret keys for twitter, devise, rails production
 .env
 
-* Ignore ruby mine stuff
+# Ignore ruby mine stuff
 .idea
 
-
+# MAC DS_Stores 
 /.DS_Store
 **/.DS_Store
+
+# ignore compiled assets
+/public/assets
