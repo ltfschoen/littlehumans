@@ -41,3 +41,7 @@ config/initializers/secret_token.rb
 
 * Ignore ruby mine stuff
 .idea
+
+
+/.DS_Store
+**/.DS_Store
