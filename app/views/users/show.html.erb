@@ -157,15 +157,15 @@ var fetchRoster = function (url) {
 				$('#calendar-list').append(
 					// add cycle colours with bootstrap after figure how to escape char
 					//'<tr class="' + cycle_class + '"><td>' + 
-					'<tr class="active"><td>' + this.creator.displayName + 
-					'</td><td>' + this.summary + 
-					'</td><td>' + this.description.slice(0,20) + // max characters 21
-					'</td><td>' + this.location.split(",", 1) + // max characters 21
+					'<tr class="active"><td>' + (this.creator ? this.creator.displayName : '') + 
+					'</td><td>' + (this.summary ? this.summary : '') + 
+					'</td><td>' + (this.description ? this.description.slice(0,20) : '') + // max characters 21
+					'</td><td>' + (this.location ? this.location.split(",", 1) : '') + // max characters 21
 					// returns .date (if all day event), or .dateTime (if duration specified)
-					'</td><td>' + (this.start.dateTime ? this.start.dateTime : this.start.date) +
-					'</td><td>' + (this.end.dateTime ? this.end.dateTime : this.end.date) +
+					'</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')) +
+					'</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')) +
 					'</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
-					'</td><td id="' + this.id + '">' + this.status +  
+					'</td><td id="' + this.id + '">' + (this.status ? this.status : '') +  
 					'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Cancel</a></td></tr>'
 				);
 			};
