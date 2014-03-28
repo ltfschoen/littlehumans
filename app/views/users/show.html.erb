@@ -166,7 +166,7 @@ var fetchRoster = function (url) {
 					'</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')) +
 					'</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
 					'</td><td id="' + this.id + '">' + (this.status ? this.status : '') +  
-					'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Cancel</a></td></tr>'
+					'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a></td></tr>'
 				);
 			};
 		});  // each data item
