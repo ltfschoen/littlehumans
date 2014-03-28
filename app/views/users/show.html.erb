@@ -11,10 +11,10 @@
           			<li><a href="/deliveries" id="births"class="btn btn-default btn-lg responsive">Births</a></li>
  					<li class="divider-user"></li>
           			<li><a href="#" id="news"class="btn btn-default btn-lg responsive">Tweets</a></li>
-          			<form id="search-form" action="#" method="get">
+<!--           			<form id="search-form" action="#" method="get">
 		       	  	  <input id="search-form-input" type="text" style="width: 100%; display:inline-block;" class="form-control" placeholder="Search" autofocus="true">
-		     	      <%= submit_tag("Search Drugs", class: "btn btn-info", id: "fetch-drugs", style:"width: 100%;") %>
-		            </form>
+		     	      <%#= submit_tag("Search Drugs", class: "btn btn-info", id: "fetch-drugs", style:"width: 100%;") %>
+		            </form> -->
 				</ul>
       		</div>  
 
@@ -78,9 +78,7 @@
 <div id="google-key"><%= @google_key %></div>
 <div id="google-simple"><%= @google_simple %></div>
 
-
 <script>
-
 
 $('#search-form').on('submit', function(event) {
 	event.preventDefault();
@@ -145,23 +143,32 @@ var fetchRoster = function (url) {
 		$('#calendar-list').html(''); // reset DOM value to empty
 		$('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Start</td><td>Finish</td><td>Duration</td><td>Status</td><td></td></tr>'); // reset each time loaded
 		console.log(data);
+
+		// grab the array stored in a hidden temporary DOM element containing event ids that we want to filter out and not display (i.e. where we have clicked the cancell button. 
+			<% str = @cancelled_array.map{|item| "'#{item}'" }.join(', ') %>
+		cancelledEventsArray = [<%= str.html_safe %>];
+		//cancelledEventsArray = $('#cancelled-array').html();
+		console.log(cancelledEventsArray);
+
 		$(data.items).each(function() { 
-			$('#calendar-list').append(
-				// add cycle colours with bootstrap after figure how to escape char
-				//'<tr class="' + cycle_class + '"><td>' + 
-				'<tr class="active"><td>' + this.creator.displayName + 
-				'</td><td>' + this.summary + 
-				'</td><td>' + this.description.slice(0,20) + // max characters 21
-				'</td><td>' + this.location.split(",", 1) + // max characters 21
-				// returns .date (if all day event), or .dateTime (if duration specified)
-				'</td><td>' + (this.start.dateTime ? this.start.dateTime : this.start.date) +
-				'</td><td>' + (this.end.dateTime ? this.end.dateTime : this.end.date) +
-				'</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
-				'</td><td id="' + this.id + '">' + this.status +  
-				'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Cancel</a></td></tr>'
 
-
-			);
+			// filter to only display calendar events retrieved from Google Calendar that we have not previously clicked to cancel (and stored their element id in our database)
+			if (cancelledEventsArray.indexOf(this.id) == -1) {
+				$('#calendar-list').append(
+					// add cycle colours with bootstrap after figure how to escape char
+					//'<tr class="' + cycle_class + '"><td>' + 
+					'<tr class="active"><td>' + this.creator.displayName + 
+					'</td><td>' + this.summary + 
+					'</td><td>' + this.description.slice(0,20) + // max characters 21
+					'</td><td>' + this.location.split(",", 1) + // max characters 21
+					// returns .date (if all day event), or .dateTime (if duration specified)
+					'</td><td>' + (this.start.dateTime ? this.start.dateTime : this.start.date) +
+					'</td><td>' + (this.end.dateTime ? this.end.dateTime : this.end.date) +
+					'</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
+					'</td><td id="' + this.id + '">' + this.status +  
+					'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Cancel</a></td></tr>'
+				);
+			};
 		});  // each data item
 	}; // addRoster
 
@@ -189,6 +196,7 @@ var fetchRoster = function (url) {
 
 // loads OAuth2 to allow connection to Google APIs (i.e. Google Calendar)
 function loadGoogleAPI() {
+
 	$('#exchange-main').show();
 	$('#exchange-search').hide();
 	$('#exchange-roster').hide();
@@ -209,16 +217,26 @@ var updateRoster = function (url) {
 	
 	var updateRosterCancelled = function(data) {
 		console.log("in addRoster with data: " + data);
-
+		$('#exchange-search').hide();
+		$('#exchange-main').hide();
+		$('#exchange-roster').show();
 	};
 
-	var new_status = "cancelled";
+	// var new_status = "cancelled";
 
 	var options = {
-	  url: '/users/calendar?filter=post&new_status=' + new_status + '&event_id=' + url, 
+	  // changed to store event id in roster database under attribute duration
+	  
+	  url: '/rosters',
+
+	  // url: '/users/calendar?filter=post&new_status=' + new_status + '&event_id=' + url, 
 	  type: 'post', // http post request is performed in controller
 	  dataType: 'json',
-	  data: { status: "cancelled" }
+	  // changed to store event id
+	  
+	  // add to event id that we want to record as being cancelled in the attribute 'name_shift' in the rosters controller
+	  data: { roster: { name_shift: url } }
+
 	  			/*end: { dateTime: "2015-07-22T11:30:00-07:00" }
                     , status: "cancelled"
                     , colorID: "rgb(150, 100, 100)"
@@ -231,6 +249,8 @@ var updateRoster = function (url) {
 	  // after get calendar from controller server side
 	}).done(function(calendar_data) { // success handler
 		console.log("data is: " + calendar_data);
+		// refresh the page so the list is redisplayed but with the events that have had the 'cancelled' button clicked being filtered out
+		window.location.reload(true);
 		updateRosterCancelled(calendar_data);
 	}).error(function(calendar_data) { // failure handler
 		console.log("error is: " + calendar_data);
