@@ -1,0 +1,195 @@
+<br><br><br><br>
+<hr>
+<!-- TEST -->
+Outputs
+<hr>
+
+<div id="list"></div>
+
+<script>
+
+// calculates sum of inputs
+// var sum = function () {
+//   var i, sum = 0;
+//   for (i = 0; i < arguments.length; i += 1) {
+//   	sum += arguments[i];
+//   }
+//   $('#list').append(sum);
+//   return sum;
+// };
+
+// console.log("Total is: " + sum(4,8,15,16,23,42));
+
+// TEST WRAPPER METHOD #1
+// var wrapper = function(f, args) {
+//     return function() {
+//         f.apply(this, args);
+//     };
+// };
+
+// TEST WRAPPER METHOD #2
+// var wrapper = function(f, args) {
+//     var params = [f].concat(args);
+//     return f.bind.apply(f, params);
+// };
+
+// function Constructor() {
+//     this.foo = 4;
+// }
+// var o = new (wrapper(Constructor, [1,2]));
+// console.log(o);
+// alert(o.foo);
+
+// FACTORIAL
+// var factorial = function factorial(i, a) {
+//     a = a || 1;
+//     if (i < 2) {
+//         return a;
+//     }
+//     console.log(a);
+//     console.log(i);
+//     return factorial(i - 1, a * i);
+// };
+// console.log(factorial(3,4));
+
+// CLOSURE EXAMPLE
+// var fade = function (node) {
+// 	var level = 1;
+// 	var step = function () {
+// 		var hex = level.toString(16); 
+// 		node.style.backgroundColor = '#FFFF' + hex + hex; 
+// 		if (level < 15) {
+// 			level += 1;
+// 			setTimeout(step, 100);
+// 		}
+// 	};
+// 	setTimeout(step, 100);
+// };
+
+// fade(document.body);
+
+// var person = {
+//   name: 'Example Person',
+//   greet: function (salutation, thing) {
+//     return this.name + ' says: ' + salutation + ', ' + thing + '!';
+//   }
+// };
+
+// var tom = {
+//   name: 'Tom'
+// };
+
+// var tom_says_hi = person.greet.bind(tom, 'Hi');
+
+// console.log(tom_says_hi('Jim')); // Tom says: Hello, Jim!
+
+
+// var curry_bind = function (fn, that) {
+//   var slice = [].slice,
+//       args = slice.call(arguments, 2);
+//   return function () {
+//     return fn.apply(that, args.concat(slice.call(arguments)));
+//   };
+// };
+
+// var person = {
+//   name: 'Example Person',
+//   greet: function (salutation, thing) {
+//     return this.name + ' says: ' + salutation + ', ' + thing + '!';
+//   }
+// };
+
+// var tom = {
+//   name: 'Tom'
+// };
+
+// var tom_says_sup = curry_bind(person.greet, tom, 'Sup');
+
+// console.log(tom_says_sup('dawg?'));
+
+
+
+// PUBSUB
+
+/**
+ * the pubsub is a publisher/subscriber system to demonstrate
+ * use of Function.call and Function.apply.
+ * http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
+ */
+
+var pubsub = {};
+
+/**
+ * pubsub.subscribers is an object where each key is an event
+ * and each value is an array of callback functions associated
+ * with a particular event.
+ */
+pubsub.subscribers = {
+  'some_event': [
+    function () { console.log("some_event occured!"); }
+  ]
+};
+
+/**
+ * pubsub.publish calls all the callbacks associated with a
+ * particular event (the first argument), passing each callback
+ * any further arguments supplied to publish.
+ */
+
+pubsub.publish = function () {
+  // arguments is not an array.
+  // use `[].slice.call` to turn it into a proper one.
+  // See: http://s.phuu.net/SiRS7W
+  var args = [].slice.call(arguments, 0);
+
+  // pull the event off the front of the array of arguments.
+  var event = args.shift();
+
+  // If we have no subscribers to this event, initialise it.
+  // Note, we could just return here.
+  if( !pubsub.subscribers[event] ) pubsub.subscribers[event] = [];
+
+  // Run through all the subscriber callbacks to the event and
+  // fire them using `apply`. This runs the cb with a set of
+  // arguments from the args array.
+  // See: http://s.phuu.net/SiSkTC
+  pubsub.subscribers[event].forEach(function (cb) {
+    cb.apply(this, args);
+  });
+};
+
+/**
+ * pubsub.subscribe adds a callback an event's list
+ */
+
+pubsub.subscribe = function (event, cb) {
+  // first, if this is a new event, set up a new list in the
+  // subscribers object.
+  if( !pubsub.subscribers[event] ) {
+    pubsub.subscribers[event] = [];
+  }
+  // next, push the supplied callback into the list to be
+  // called when the object is published
+  pubsub.subscribers[event].push(cb);
+};
+
+pubsub.publish('some_event');
+
+pubsub.subscribe('say_hello', function (name) {
+  console.log('Hello, ' + name);
+});
+
+pubsub.subscribe('say_goodbye', function (name) {
+  console.log('Goodbye, ' + name);
+});
+
+pubsub.subscribe('poke', function (name) {
+  console.log(name + " was poked.");
+});
+
+pubsub.publish('say_hello', 'Tom');
+pubsub.publish('poke', 'Paul');
+pubsub.publish('say_goodbye', 'Mr Fish');
+
+
+</script>
