@@ -99,6 +99,10 @@ gem 'twitter-text'
 # gem to modify Google Calendar but requires logging in
 gem 'google_calendar'
 
+# gem haml 
+gem 'haml'
+gem 'haml-rails', :group => :development
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

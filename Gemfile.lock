@@ -75,6 +75,13 @@ GEM
     google_calendar (0.3.1)
       addressable (>= 2.2.2)
       nokogiri (>= 1.4.4)
+    haml (4.0.5)
+      tilt
+    haml-rails (0.5.3)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 3.1, < 5.0)
+      railties (>= 4.0.1)
     hashie (2.0.5)
     hike (1.2.3)
     http (0.5.0)
@@ -262,6 +269,8 @@ DEPENDENCIES
   dotenv-rails
   factory_girl
   google_calendar
+  haml
+  haml-rails
   httparty
   jbuilder (~> 1.2)
   jquery-rails
