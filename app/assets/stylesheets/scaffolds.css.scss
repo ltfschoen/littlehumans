@@ -1,14 +1,16 @@
+@import url("http://fonts.googleapis.com/css?family=Spinnaker");
+
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-family: "Spinnaker", sans-serif;
+  font-size: 15px;
   line-height: 18px;
 }
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-family: "Spinnaker", sans-serif;
+  font-size: 15px;
   line-height: 18px;
 }
 
@@ -19,13 +21,13 @@ pre {
 }
 
 a {
-  color: #000;
+  color: #4AB0D9;
   &:visited {
-    color: #666;
+    color: #4A7ED9;
   }
   &:hover {
-    color: #fff;
-    background-color: #89a;
+    color: #ACD41E;
+    zoom: 1.05;
   }
 }
 
