@@ -66,6 +66,10 @@ group :test do
 
 	gem 'rspec-rails'
 
+  # runs tests when test files change https://github.com/guard/guard-rspec
+  # run with bundle exec guard 
+  gem 'guard-rspec', :require => false
+
 	gem 'capybara'
 
 	# for better tests
