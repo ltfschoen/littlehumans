@@ -18,7 +18,7 @@
 //= require_tree .
 
 $('#sidebar-user').affix({
-      offset: {
-        top: $('header').height()
-      }
-});	
+  offset: {
+    top: $('header').height()
+  }
+}); 

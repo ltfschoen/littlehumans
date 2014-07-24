@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   has_many :rosters
-
   has_many :deliveries
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -23,28 +22,27 @@ class User < ActiveRecord::Base
                             email:auth.info.email,
                             password:Devise.friendly_token[0,20]
                           )
-      end
-       
+      end 
     end
   end
 
   def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
-  	user = User.where(:provider => auth.provider, :uid => auth.uid).first
-  	if user
-  		return user
-  	else
-  		registered_user = User.where(:email => auth.uid + "@twitter.com").first
-  		if registered_user
-  			return registered_user
-  		else
-  			user = User.create(name:auth.info.name,
-  				provider:auth.provider,
-  				uid:auth.uid,
-  				email:auth.uid+"@twitter.com",
-  				password:Devise.friendly_token[0,20]
-  				)
-  		end
-  	end
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    if user
+      return user
+    else
+      registered_user = User.where(:email => auth.uid + "@twitter.com").first
+      if registered_user
+        return registered_user
+      else
+        user = User.create(name:auth.info.name,
+          provider:auth.provider,
+          uid:auth.uid,
+          email:auth.uid+"@twitter.com",
+          password:Devise.friendly_token[0,20]
+          )
+      end
+    end
   end
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
