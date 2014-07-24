@@ -5,13 +5,10 @@ class DeliveriesController < ApplicationController
   # GET /deliveries
   # GET /deliveries.json
   def index   
-    if params[:filter] == 'all'
-      @deliveries = Delivery.all 
-      @all = true
-    elsif params[:filter] == 'my'
+    if params[:filter] == 'my'
       @deliveries = current_user.deliveries.all if current_user.deliveries
       @all = false
-    else
+    else 
       @deliveries = Delivery.all
       @all = true
     end
