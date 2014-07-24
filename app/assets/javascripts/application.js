@@ -21,4 +21,4 @@ $('#sidebar-user').affix({
       offset: {
         top: $('header').height()
       }
-});	
+}); 

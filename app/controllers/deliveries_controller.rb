@@ -4,19 +4,19 @@ class DeliveriesController < ApplicationController
   # GET /deliveries
   # GET /deliveries.json
   def index
-  	
- 	if params[:filter] == 'all'
-    	@deliveries = Delivery.all 
-    	@all = true
-  	elsif params[:filter] == 'my'
-  		@deliveries = current_user.deliveries.all if current_user.deliveries
-		@all = false
-	else
-		@deliveries = Delivery.all
-		@all = true
-		
+    
+  if params[:filter] == 'all'
+      @deliveries = Delivery.all 
+      @all = true
+    elsif params[:filter] == 'my'
+      @deliveries = current_user.deliveries.all if current_user.deliveries
+    @all = false
+  else
+    @deliveries = Delivery.all
+    @all = true
+    
     end
-     		
+        
   end
 
   # GET /deliveries/1

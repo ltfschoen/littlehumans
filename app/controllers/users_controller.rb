@@ -17,21 +17,21 @@ class UsersController < ApplicationController
     # added filter to have access to array of cancelled events
     @rosters = Roster.where("name_shift IS NOT NULL").select("distinct name_shift").all
     @cancelled_array = @rosters.map(&:name_shift)
-	
+  
     logger.info("cancelled_array response is *** #{@cancelled_array}")
 
-  	@user = current_user
+    @user = current_user
 
-	# get tweets 
-	@client = Twitter::REST::Client.new do |config| 
-	  config.consumer_key        = ENV['TWITTER_KEY']
-	  config.consumer_secret     = ENV['TWITTER_SECRET']
-	  config.access_token 		 = ENV['TWITTER_ACCESS_TOKEN']
-	  config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
-	end
+  # get tweets 
+  @client = Twitter::REST::Client.new do |config| 
+    config.consumer_key        = ENV['TWITTER_KEY']
+    config.consumer_secret     = ENV['TWITTER_SECRET']
+    config.access_token      = ENV['TWITTER_ACCESS_TOKEN']
+    config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+  end
 
     # get latest 5 tweets from twitter username 'MidwivesACM'
-	@tweet = @client.user_timeline("MidwivesACM", {:count => 3, :include_rts => true})
+  @tweet = @client.user_timeline("MidwivesACM", {:count => 3, :include_rts => true})
  
     #binding.pry
     @tweet2 = @client.user_timeline("midwifeorg", {:count => 3, :include_rts => true})
@@ -40,55 +40,55 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-  	redirect_to user_path(current_user)
+    redirect_to user_path(current_user)
   end
 
   def calendar
-  	google_key = ENV['GOOGLE_KEY'] 
-  	google_simple = ENV['GOOGLE_SIMPLE'] # generate at https://code.google.com/apis/console/
-  	google_calendarid = 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com' # generate from settings in google calendar 
+    google_key = ENV['GOOGLE_KEY'] 
+    google_simple = ENV['GOOGLE_SIMPLE'] # generate at https://code.google.com/apis/console/
+    google_calendarid = 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com' # generate from settings in google calendar 
 
- 	if params[:filter] == 'get'
+  if params[:filter] == 'get'
 
-		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}"
+    url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}"
 
-	    @url_resp = HTTParty.get(url) 
-	    logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
-	    #binding.pry
+      @url_resp = HTTParty.get(url) 
+      logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
+      #binding.pry
 
-	    respond_to do |format|
-	        format.json { render json: @url_resp.to_json }
-	        format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
-	    end
+      respond_to do |format|
+          format.json { render json: @url_resp.to_json }
+          format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
+      end
 
-  	elsif params[:filter] == 'post' && params[:new_status] == 'cancelled'
+    elsif params[:filter] == 'post' && params[:new_status] == 'cancelled'
 
-		new_status = params[:new_status]
-		event_id = params[:event_id]
+    new_status = params[:new_status]
+    event_id = params[:event_id]
 
-		# # auth with to calendar using google_calendar gem - not working yet
-		# @cal = Google::Calendar.new(:username => ENV['G_USER'],
-	    #                           :password => ENV['G_PASS'],
-	    #                           :app_name => 'Littlehumans')
+    # # auth with to calendar using google_calendar gem - not working yet
+    # @cal = Google::Calendar.new(:username => ENV['G_USER'],
+      #                           :password => ENV['G_PASS'],
+      #                           :app_name => 'Littlehumans')
 
-		# POST request 
-		#url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+    # POST request 
+    #url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
 
-		# PATCH request
-		url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events/#{event_id}?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
+    # PATCH request
+    url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events/#{event_id}?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
 
-	    @url_resp = HTTParty.patch(url)#.parsed_response
-	    logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
-	    #binding.pry
+      @url_resp = HTTParty.patch(url)#.parsed_response
+      logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
+      #binding.pry
 
-	    respond_to do |format|
-	        format.json { render json: @url_resp.to_json }
-	        format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
-	    end
+      respond_to do |format|
+          format.json { render json: @url_resp.to_json }
+          format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
+      end
 
-	else
+  else
 
-		params[:filter] == nil
+    params[:filter] == nil
 
     end
 

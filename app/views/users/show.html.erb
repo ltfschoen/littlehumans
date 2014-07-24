@@ -2,77 +2,77 @@
 
 <!-- Begin Body -->
 <div class="container-user">
-	<div class="row">
+  <div class="row">
 
-  			<div class="col-sm-2" id="sidebar-user">
-  				<br><br>
-      			<ul class="nav nav-pills nav-stacked">
-                  	<li><a href="#" id="roster" class="btn btn-default btn-lg responsive">Roster</a></li>
-          			<li><a href="/deliveries" id="births"class="btn btn-default btn-lg responsive">Births</a></li>
- 					<li class="divider-user"></li>
-          			<li><a href="#" id="news"class="btn btn-default btn-lg responsive">Tweets</a></li>
-<!--           			<form id="search-form" action="#" method="get">
-		       	  	  <input id="search-form-input" type="text" style="width: 100%; display:inline-block;" class="form-control" placeholder="Search" autofocus="true">
-		     	      <%#= submit_tag("Search Drugs", class: "btn btn-info", id: "fetch-drugs", style:"width: 100%;") %>
-		            </form> -->
-				</ul>
-      		</div>  
+        <div class="col-sm-2" id="sidebar-user">
+          <br><br>
+            <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#" id="roster" class="btn btn-default btn-lg responsive">Roster</a></li>
+                <li><a href="/deliveries" id="births"class="btn btn-default btn-lg responsive">Births</a></li>
+          <li class="divider-user"></li>
+                <li><a href="#" id="news"class="btn btn-default btn-lg responsive">Tweets</a></li>
+<!--                <form id="search-form" action="#" method="get">
+                  <input id="search-form-input" type="text" style="width: 100%; display:inline-block;" class="form-control" placeholder="Search" autofocus="true">
+                <%#= submit_tag("Search Drugs", class: "btn btn-info", id: "fetch-drugs", style:"width: 100%;") %>
+                </form> -->
+        </ul>
+          </div>  
 
-      		<div class="col-sm-9" id="exchange-main">
-				<br>
-				<h1>Latest Midwifery Tweets</h1><br>
-              	<h2><a href="https://twitter.com/<%= @tweet[0].user.screen_name %>" target="new">@<%= @tweet[0].user.screen_name %> News</a></h2>
+          <div class="col-sm-9" id="exchange-main">
+        <br>
+        <h1>Latest Midwifery Tweets</h1><br>
+                <h2><a href="https://twitter.com/<%= @tweet[0].user.screen_name %>" target="new">@<%= @tweet[0].user.screen_name %> News</a></h2>
                 <img src="http://twitteling.com/wp-content/uploads/2012/08/gopego_Free-Baby-wallpaper.jpg" style="height:240px;width:640px;" class="tweet-image">
-				<% t = 0 %>
-				<% @tweet.each do |tweet| %>
-				<div class="tweets">
-					<%= auto_link(tweet.text).html_safe %>
-				</div><br>
-				<% t = t + 1 %>
-				<% end %>
+        <% t = 0 %>
+        <% @tweet.each do |tweet| %>
+        <div class="tweets">
+          <%= auto_link(tweet.text).html_safe %>
+        </div><br>
+        <% t = t + 1 %>
+        <% end %>
 
-              	<h2><a href="https://twitter.com/<%= @tweet2[0].user.screen_name %>" target="new">@<%= @tweet2[0].user.screen_name %> News</a></h2>
-				<% t = 0 %>
-				<% @tweet2.each do |tweet| %>
-				<div class="tweets2" class="bg-primary bg-primary_ls_round">
-					<%= raw auto_link(tweet.text) %> 
-				</div><br>
-				<% t = t + 1 %>
-				<% end %>
+                <h2><a href="https://twitter.com/<%= @tweet2[0].user.screen_name %>" target="new">@<%= @tweet2[0].user.screen_name %> News</a></h2>
+        <% t = 0 %>
+        <% @tweet2.each do |tweet| %>
+        <div class="tweets2" class="bg-primary bg-primary_ls_round">
+          <%= raw auto_link(tweet.text) %> 
+        </div><br>
+        <% t = t + 1 %>
+        <% end %>
 
-        	</div>
+          </div>
 
-        	<div class="col-sm-9" id="exchange-search" >      	
-				<br>
-			    <div class="table-responsive">
-			      <h1>My Drugs</h1><br>
-			  	  <table id="movies-list" class="table table-hover">
-					<!-- ajax outputs -->
-					
-					
-			  	  </table>
-			    </div>
-      		</div> 
+          <div class="col-sm-9" id="exchange-search" >        
+        <br>
+          <div class="table-responsive">
+            <h1>My Drugs</h1><br>
+            <table id="movies-list" class="table table-hover">
+          <!-- ajax outputs -->
+          
+          
+            </table>
+          </div>
+          </div> 
 
-      		<div class="col-sm-9" id="exchange-roster" >      	
+          <div class="col-sm-9" id="exchange-roster" >        
 
-				<!-- responsive bootstrap 'table' and 'table-responsive' and 'active' css -->
-			    <div class="table-responsive">
-			    	<br>
-			      <div style="inline"><h1>My Roster</h1></div>&nbsp;<div style="inline"><a href="/rosters" id="roster" class="btn btn-default btn-lg responsive">Edit Roster</a></div>
-			      <br><br>
-			      <a href="https://www.google.com/calendar/embed?src=m88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com&ctz=Australia/Sydney" target="new">Test Public Google Calendar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;  
+        <!-- responsive bootstrap 'table' and 'table-responsive' and 'active' css -->
+          <div class="table-responsive">
+            <br>
+            <div style="inline"><h1>My Roster</h1></div>&nbsp;<div style="inline"><a href="/rosters" id="roster" class="btn btn-default btn-lg responsive">Edit Roster</a></div>
+            <br><br>
+            <a href="https://www.google.com/calendar/embed?src=m88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com&ctz=Australia/Sydney" target="new">Test Public Google Calendar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;  
 
-			      <a href="https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com" target="new">View JSON</a>
-			  	  <table id="calendar-list" class="table table-hover">
-					<!-- ajax outputs -->
-					
+            <a href="https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com" target="new">View JSON</a>
+            <table id="calendar-list" class="table table-hover">
+          <!-- ajax outputs -->
+          
 
-			  	  </table>
-			    </div>
-      		</div> 
+            </table>
+          </div>
+          </div> 
 
-  	</div>
+    </div>
 </div>
 
 <div id="google-key"><%= @google_key %></div>
@@ -81,182 +81,182 @@
 <script>
 
 $('#search-form').on('submit', function(event) {
-	event.preventDefault();
-	$('#exchange-main').hide();
-	$('#exchange-roster').hide();
-	$('#exchange-search').show();
+  event.preventDefault();
+  $('#exchange-main').hide();
+  $('#exchange-roster').hide();
+  $('#exchange-search').show();
 
-	var url = 'http://www.omdbapi.com/?s=';
-	console.log(url);
-	console.log('submit form');
-	console.log('fetch movies currently disabled');
+  var url = 'http://www.omdbapi.com/?s=';
+  console.log(url);
+  console.log('submit form');
+  console.log('fetch movies currently disabled');
 })
 
 $('#news').on('click', function(event) {
-	event.preventDefault();
-	$('#exchange-search').hide();
-	$('#exchange-roster').hide();
-	$('#exchange-main').show();
+  event.preventDefault();
+  $('#exchange-search').hide();
+  $('#exchange-roster').hide();
+  $('#exchange-main').show();
 })
 
 // prevent click showing all pages
 $('#search-drug').on('click', function(event) {
-	event.preventDefault();
+  event.preventDefault();
 })
 
 var fetchRoster = function (url) {
-	
-	var countHours = function(start, end){
-		// sample of start is 2014-03-26T10:00:00+11:00
-		// sample of end is 2014-03-26T10:30:00+11:00	
-		console.log('start:' + start);
-		console.log('end:' + end);
-		// if not item[i].start.dateTime (i.e. all day events only have item[i].start.date )
-		if (start === '' || end === '') { 
-			return '1 day';
-		} else {
-			// sample if duration 2014-03-26T10:00:00+11:00
-			// var regex = /[T]/; // regular expression to detect if contains the letter T
-			// var day = regex.exec(start);
-			// console.log(day)
-			// // regex.exec returns ["T", index: 10, input: "2014-03-26T10:00:00+11:00"]
-			// // if contains letter T which indicates it is not full day
-			// if (day && day[0] === 'T') { 
-			// 	return '1 day';
-			// } else {
+  
+  var countHours = function(start, end){
+    // sample of start is 2014-03-26T10:00:00+11:00
+    // sample of end is 2014-03-26T10:30:00+11:00 
+    console.log('start:' + start);
+    console.log('end:' + end);
+    // if not item[i].start.dateTime (i.e. all day events only have item[i].start.date )
+    if (start === '' || end === '') { 
+      return '1 day';
+    } else {
+      // sample if duration 2014-03-26T10:00:00+11:00
+      // var regex = /[T]/; // regular expression to detect if contains the letter T
+      // var day = regex.exec(start);
+      // console.log(day)
+      // // regex.exec returns ["T", index: 10, input: "2014-03-26T10:00:00+11:00"]
+      // // if contains letter T which indicates it is not full day
+      // if (day && day[0] === 'T') { 
+      //  return '1 day';
+      // } else {
 
-			var hours = 0;
+      var hours = 0;
 
-			start = new Date(start.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19) );
-			end = new Date(end.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19));
-			hours = hours + ( end - start ) / ( 1000 * 60 * 60 );
+      start = new Date(start.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19) );
+      end = new Date(end.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19));
+      hours = hours + ( end - start ) / ( 1000 * 60 * 60 );
 
-			return (hours + ' hrs');
-			// returns 0.5 hrs
-		}; // if not start and end empty
+      return (hours + ' hrs');
+      // returns 0.5 hrs
+    }; // if not start and end empty
 
-	}; //function count hours
+  }; //function count hours
 
-	// JSON of public calendar currently under test
-	// https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com
-	var addRoster = function(data) {
-		$('#calendar-list').html(''); // reset DOM value to empty
-		$('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Status</td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
-		console.log(data);
+  // JSON of public calendar currently under test
+  // https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com
+  var addRoster = function(data) {
+    $('#calendar-list').html(''); // reset DOM value to empty
+    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Status</td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
+    console.log(data);
 
-		// grab the array stored in a hidden temporary DOM element containing event ids that we want to filter out and not display (i.e. where we have clicked the cancell button. 
-			<% str = @cancelled_array.map{|item| "'#{item}'" }.join(', ') %>
-		cancelledEventsArray = [<%= str.html_safe %>];
-		//cancelledEventsArray = $('#cancelled-array').html();
-		console.log(cancelledEventsArray);
+    // grab the array stored in a hidden temporary DOM element containing event ids that we want to filter out and not display (i.e. where we have clicked the cancell button. 
+      <% str = @cancelled_array.map{|item| "'#{item}'" }.join(', ') %>
+    cancelledEventsArray = [<%= str.html_safe %>];
+    //cancelledEventsArray = $('#cancelled-array').html();
+    console.log(cancelledEventsArray);
 
-		$(data.items).each(function() { 
+    $(data.items).each(function() { 
 
-			// filter to only display calendar events retrieved from Google Calendar that we have not previously clicked to cancel (and stored their element id in our database)
-			if (cancelledEventsArray.indexOf(this.id) == -1) {
-				$('#calendar-list').append(
-					// add cycle colours with bootstrap after figure how to escape char
-					//'<tr class="' + cycle_class + '"><td>' + 
-					'<tr class="active"><td>' + (this.creator ? this.creator.displayName : '') + 
-					'</td><td>' + (this.summary ? this.summary : '') + 
-					'</td><td>' + (this.description ? this.description.slice(0,20) : '') + // max characters 21
-					'</td><td>' + (this.location ? this.location.split(",", 1) : '') + // max characters 21
-					// returns .date (if all day event), or .dateTime (if duration specified)
-					'</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
+      // filter to only display calendar events retrieved from Google Calendar that we have not previously clicked to cancel (and stored their element id in our database)
+      if (cancelledEventsArray.indexOf(this.id) == -1) {
+        $('#calendar-list').append(
+          // add cycle colours with bootstrap after figure how to escape char
+          //'<tr class="' + cycle_class + '"><td>' + 
+          '<tr class="active"><td>' + (this.creator ? this.creator.displayName : '') + 
+          '</td><td>' + (this.summary ? this.summary : '') + 
+          '</td><td>' + (this.description ? this.description.slice(0,20) : '') + // max characters 21
+          '</td><td>' + (this.location ? this.location.split(",", 1) : '') + // max characters 21
+          // returns .date (if all day event), or .dateTime (if duration specified)
+          '</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
 
-					'</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' + 		
-					'</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')) +
-					'</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')) +
-					'</td><td id="' + this.id + '">' + (this.status ? this.status : '') +  			
-					'</td></tr>'
-				);
-			};
-		});  // each data item
-	}; // addRoster
+          '</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +    
+          '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')) +
+          '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')) +
+          '</td><td id="' + this.id + '">' + (this.status ? this.status : '') +       
+          '</td></tr>'
+        );
+      };
+    });  // each data item
+  }; // addRoster
 
-	// ajax request for google calendar via calendar method in users controller
-	// purpose is alternative to direct ajax request that reveals google security keys
-	var options = {
-	  url: '/users/calendar?filter=get', 
-	  type: 'get',
-	  dataType: 'json'
-	};
+  // ajax request for google calendar via calendar method in users controller
+  // purpose is alternative to direct ajax request that reveals google security keys
+  var options = {
+    url: '/users/calendar?filter=get', 
+    type: 'get',
+    dataType: 'json'
+  };
 
     $.ajax(options).done(function(calendar) {
-	  console.log('ajax calendar success');
-	  console.log(calendar);
-	  // after get calendar from controller server side
-	}).done(function(calendar_data) { // success handler
-		console.log("data is: " + calendar_data);
-		addRoster(calendar_data);
-		//setTimeout(loadGoogleAPI, 1000); // schedule next request after 5s
-	}).error(function(calendar_data) { // failure handler
-		console.log("error is: " + calendar_data);
-	});
+    console.log('ajax calendar success');
+    console.log(calendar);
+    // after get calendar from controller server side
+  }).done(function(calendar_data) { // success handler
+    console.log("data is: " + calendar_data);
+    addRoster(calendar_data);
+    //setTimeout(loadGoogleAPI, 1000); // schedule next request after 5s
+  }).error(function(calendar_data) { // failure handler
+    console.log("error is: " + calendar_data);
+  });
 
 };
 
 // loads OAuth2 to allow connection to Google APIs (i.e. Google Calendar)
 function loadGoogleAPI() {
 
-	$('#exchange-main').show();
-	$('#exchange-search').hide();
-	$('#exchange-roster').hide();
-	fetchRoster();
+  $('#exchange-main').show();
+  $('#exchange-search').hide();
+  $('#exchange-roster').hide();
+  fetchRoster();
 };
 
 // prevent click showing all pages
 $('#roster').on('click', function(event) {
-	event.preventDefault();
-	$('#exchange-search').hide();
-	$('#exchange-main').hide();
-	$('#exchange-roster').show();
-	fetchRoster();
+  event.preventDefault();
+  $('#exchange-search').hide();
+  $('#exchange-main').hide();
+  $('#exchange-roster').show();
+  fetchRoster();
 });
 
 // ajax call to users/calender when user clicks a roster anchor tag
 var updateRoster = function (url) {
-	
-	var updateRosterCancelled = function(data) {
-		console.log("in addRoster with data: " + data);
-		$('#exchange-search').hide();
-		$('#exchange-main').hide();
-		$('#exchange-roster').show();
-	};
+  
+  var updateRosterCancelled = function(data) {
+    console.log("in addRoster with data: " + data);
+    $('#exchange-search').hide();
+    $('#exchange-main').hide();
+    $('#exchange-roster').show();
+  };
 
-	// var new_status = "cancelled";
+  // var new_status = "cancelled";
 
-	var options = {
-	  // changed to store event id in roster database under attribute duration
-	  
-	  url: '/rosters',
+  var options = {
+    // changed to store event id in roster database under attribute duration
+    
+    url: '/rosters',
 
-	  // url: '/users/calendar?filter=post&new_status=' + new_status + '&event_id=' + url, 
-	  type: 'post', // http post request is performed in controller
-	  dataType: 'json',
-	  // changed to store event id
-	  
-	  // add to event id that we want to record as being cancelled in the attribute 'name_shift' in the rosters controller
-	  data: { roster: { name_shift: url } }
+    // url: '/users/calendar?filter=post&new_status=' + new_status + '&event_id=' + url, 
+    type: 'post', // http post request is performed in controller
+    dataType: 'json',
+    // changed to store event id
+    
+    // add to event id that we want to record as being cancelled in the attribute 'name_shift' in the rosters controller
+    data: { roster: { name_shift: url } }
 
-	  			/*end: { dateTime: "2015-07-22T11:30:00-07:00" }
+          /*end: { dateTime: "2015-07-22T11:30:00-07:00" }
                     , status: "cancelled"
                     , colorID: "rgb(150, 100, 100)"
                 }*/
-	}; // options
+  }; // options
 
     $.ajax(options).done(function(calendar) {
-	  console.log('ajax update calendar success');
-	  console.log(calendar);
-	  // after get calendar from controller server side
-	}).done(function(calendar_data) { // success handler
-		console.log("data is: " + calendar_data);
-		// refresh the page so the list is redisplayed but with the events that have had the 'cancelled' button clicked being filtered out
-		window.location.reload(true);
-		updateRosterCancelled(calendar_data);
-	}).error(function(calendar_data) { // failure handler
-		console.log("error is: " + calendar_data);
-	}); // ajax etc
+    console.log('ajax update calendar success');
+    console.log(calendar);
+    // after get calendar from controller server side
+  }).done(function(calendar_data) { // success handler
+    console.log("data is: " + calendar_data);
+    // refresh the page so the list is redisplayed but with the events that have had the 'cancelled' button clicked being filtered out
+    window.location.reload(true);
+    updateRosterCancelled(calendar_data);
+  }).error(function(calendar_data) { // failure handler
+    console.log("error is: " + calendar_data);
+  }); // ajax etc
 
 }; // updateRoster
 

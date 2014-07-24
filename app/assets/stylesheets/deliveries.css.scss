@@ -8,9 +8,9 @@ $break-large: 540px;
 
 #deliveries-list {
 
-	font-weight: bold;
+  font-weight: bold;
 
-	@media screen and (max-width: $break-small) {
+  @media screen and (max-width: $break-small) {
         overflow-x: visible;
     }
 
@@ -19,9 +19,9 @@ $break-large: 540px;
     }
 
     @media screen and (min-width: $break-large) {
-		overflow-x: auto; // allows user to scroll to right of the table width shrunk on mobile devices
+    overflow-x: auto; // allows user to scroll to right of the table width shrunk on mobile devices
     }
-	
+  
 
 }
 
@@ -41,13 +41,13 @@ $break-large: 540px;
     }
 
     @media screen and (min-width: $break-large) {
-		display: inline-block;
+    display: inline-block;
     }
 
 }
 
 .delivery-centred {
 
-	text-align: center;
+  text-align: center;
 
 }

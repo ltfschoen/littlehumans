@@ -14,7 +14,7 @@ describe UsersController do
       get :show
       expect(response).to be_success
       expect(response.status).to eq(200)
-	end
+  end
   end
 
 end

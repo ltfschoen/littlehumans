@@ -1,11 +1,11 @@
 <br><br><br>
 
  <div class="delivery-links">
- 	<%= link_to 'Back', user_path(current_user), class: "btn btn-default btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
+  <%= link_to 'Back', user_path(current_user), class: "btn btn-default btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
  </div>
 
  <div class="delivery-links">
- 	<%= link_to 'Create', '/deliveries/new', class: "btn btn-success btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
+  <%= link_to 'Create', '/deliveries/new', class: "btn btn-success btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
  </div>
 
  <div class="delivery-links">
@@ -40,13 +40,13 @@
     <% @deliveries.each do |delivery| %>
 
      <tr onclick="showDelivery(<%= delivery.id %>)">
-     	<a id="fake_click_<%= delivery.id %>" href="/deliveries/<%= delivery.id %>"></a>
+      <a id="fake_click_<%= delivery.id %>" href="/deliveries/<%= delivery.id %>"></a>
         <td><%= delivery.name_baby %></td>
         <td><%= delivery.time_born %></td>
         <td><%= delivery.name_location_born %></td>
         <td><%= delivery.user.name if delivery.user %> <%= delivery.user.id if delivery.user %></td>
         <% if @all == false %> <!-- only let midwife user who created baby make changes -->
-        	<td><%= link_to 'Destroy', delivery, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %></td>
+          <td><%= link_to 'Destroy', delivery, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %></td>
         <% end %>
 
       </tr>
@@ -57,45 +57,45 @@
 
 <script>
 
-	function showDelivery(delivery) {
-		console.log(delivery);
+  function showDelivery(delivery) {
+    console.log(delivery);
 
-	    var options = {
-		  url: '/deliveries/' + delivery, 
-		  type: 'get',
-		  dataType: 'json'
-		}
+      var options = {
+      url: '/deliveries/' + delivery, 
+      type: 'get',
+      dataType: 'json'
+    }
 
-	    $.ajax(options).done(function(delivery) {
-		  console.log('ajax calendar success');
-		  console.log(delivery.id);
-		  dom = '#fake_click_' + delivery.id;
-		  console.log(dom);
+      $.ajax(options).done(function(delivery) {
+      console.log('ajax calendar success');
+      console.log(delivery.id);
+      dom = '#fake_click_' + delivery.id;
+      console.log(dom);
 
-		  //https://developer.mozilla.org/en-US/docs/Web/API/Window.location
-		  var initialPage = window.location.pathname;
-		  console.log(initialPage);
-		  b = window.location.replace(initialPage + '/' + delivery.id);// + dom);//window.location.href + initialPage + dom);
-		  console.log(b);
-		  // OLD TESTINGS 
-		  //window.location.reload(true);
-		  //window.location = $('[href="' + hash + '"]').addClass("selected");
-		  // window.location = $(dom_data).href; //document.getElementById('dom').href;
-		  // window.location.assign("http://www.mozilla.org"); 
-		  // window.location = "http://www.mozilla.org";
-		  // function reloadPageWithHash() {  
-		  //   window.location.replace('http://example.com/#' + initialPage);
-		  // }
-		  
-		}).done(function(dom_data) { // success handler
-			console.log("data is: " + dom_data);
-		}).error(function(dom_data) { // failure handler
-			console.log("error is: " + dom_data);
-		});
-	}
+      //https://developer.mozilla.org/en-US/docs/Web/API/Window.location
+      var initialPage = window.location.pathname;
+      console.log(initialPage);
+      b = window.location.replace(initialPage + '/' + delivery.id);// + dom);//window.location.href + initialPage + dom);
+      console.log(b);
+      // OLD TESTINGS 
+      //window.location.reload(true);
+      //window.location = $('[href="' + hash + '"]').addClass("selected");
+      // window.location = $(dom_data).href; //document.getElementById('dom').href;
+      // window.location.assign("http://www.mozilla.org"); 
+      // window.location = "http://www.mozilla.org";
+      // function reloadPageWithHash() {  
+      //   window.location.replace('http://example.com/#' + initialPage);
+      // }
+      
+    }).done(function(dom_data) { // success handler
+      console.log("data is: " + dom_data);
+    }).error(function(dom_data) { // failure handler
+      console.log("error is: " + dom_data);
+    });
+  }
 
-	$(document).ready(function() {
+  $(document).ready(function() {
 
-	});
+  });
 
 </script>

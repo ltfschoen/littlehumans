@@ -12,26 +12,26 @@ LittlehumansApp::Application.routes.draw do
   
   devise_for :users, 
              :controllers => { :omniauth_callbacks => "users/omniauth_callbacks",
-							   :registrations => "users/registrations", 
-							   :passwords => 'users/passwords'
-             				 }
+                 :registrations => "users/registrations", 
+                 :passwords => 'users/passwords'
+                     }
 
   # resources :users, :only => [:index, :show, :edit, :update]
 
   resources :users do
-  	resources :rosters
-  	resources :deliveries
-  	collection do
-  		get :calendar # google calendar
-  		post :calendar # google calendar
-  	end
+    resources :rosters
+    resources :deliveries
+    collection do
+      get :calendar # google calendar
+      post :calendar # google calendar
+    end
   end
 
   get '/dashboard' => "users#dashboard", as: :dashboard
 
   devise_scope :user do
-  	root :to => "devise/sessions#new"
-  	# root :to => 'devise/sessions#new'
+    root :to => "devise/sessions#new"
+    # root :to => 'devise/sessions#new'
    #  get "/users/sign_in" => "devise/sessions#new", :as => :login
    #  get "/users/sign_up" => "devise/sessions#create", :as => :signup
   end
@@ -44,7 +44,7 @@ LittlehumansApp::Application.routes.draw do
 
   # tell devise to use scope users
   # devise_scope :user do
-  # 	root :to => 'devise/sessions#new'
+  #   root :to => 'devise/sessions#new'
   # end
 
 end
