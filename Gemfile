@@ -68,18 +68,21 @@ group :test do
 
   # runs tests when test files change https://github.com/guard/guard-rspec
   # run with bundle exec guard 
-  gem 'guard-rspec', :require => false
+  gem 'guard-rspec', require: false
 
 	gem 'capybara'
 
 	# for better tests
 	gem 'shoulda'
+
+  # simpler tests for associations https://github.com/thoughtbot/shoulda-matchers
+  gem 'shoulda-matchers', require: false
 	
 	# mocking and stubbing
 	gem 'mocha'
 
 	# added simplecov to see how much code is covered by our tests
-	gem 'simplecov', :require => false
+	gem 'simplecov', require: false
 
 	# testing with fake users in rspec
 	gem 'factory_girl'
