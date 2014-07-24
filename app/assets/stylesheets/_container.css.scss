@@ -1,35 +1,35 @@
 .show_background {
-	background: black url("/images/shutterstock_162860348_high.jpg") no-repeat fixed center; 
-	background-size: cover;
-	opacity:0.8;
-	filter:alpha(opacity=80); /* For IE8 and earlier */
+  background: black url("/images/shutterstock_162860348_high.jpg") no-repeat fixed center; 
+  background-size: cover;
+  opacity:0.8;
+  filter:alpha(opacity=80); /* For IE8 and earlier */
 }
 
 #container { 
-	position:relative;	/* This fixes the IE7 overflow hidden bug */
-	clear:both;
-	float:left;
-	width:100%;			/* width of whole page */
-	overflow:hidden;		/* This chops off any overhanging divs */
-	margin: 0px auto; 
-	text-align: center; 
-	padding-left: .6em; 
-	padding-right: .6em;  
+  position:relative;  /* This fixes the IE7 overflow hidden bug */
+  clear:both;
+  float:left;
+  width:100%;     /* width of whole page */
+  overflow:hidden;    /* This chops off any overhanging divs */
+  margin: 0px auto; 
+  text-align: center; 
+  padding-left: .6em; 
+  padding-right: .6em;  
 }
 
 a:hover {
-	text-decoration:none;
+  text-decoration:none;
 }
 
 h1, h2, h3 {
-	margin:.8em 0 .2em 0;
-	padding:0;
+  margin:.8em 0 .2em 0;
+  padding:0;
 }
 p {
-	margin:.4em 0 .8em 0;
-	padding:0;
+  margin:.4em 0 .8em 0;
+  padding:0;
 }
 img {
-	max-width: 300px;
-	margin:10px 0 5px;
+  max-width: 300px;
+  margin:10px 0 5px;
 }

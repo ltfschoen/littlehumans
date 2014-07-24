@@ -8,6 +8,7 @@ $break-large: 540px;
 
   // media screen (i.e. non-smartphone and displaying on screen)
   // max-width is the browser window including scrollbar
+
   @media screen and (max-width: $break-small) {
     width: 100px;
     text-align: left; 
@@ -15,16 +16,14 @@ $break-large: 540px;
     //font-size: 90%;
     //float: none;
   }
-
   @media screen and (min-width: $break-medium) {
     width: 330px;
     text-align: left; 
     //float: none;
   }
-  
   @media screen and (min-width: $break-large) {
-  	float: none;
-  	width: 100%;
+    float: none;
+    width: 100%;
     text-align: left; 
   }
 }

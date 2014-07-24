@@ -12,13 +12,12 @@ class ApplicationController < ActionController::Base
   # end
 
   def after_sign_in_path_for(resource)
-  	# use /user 
+    # use /user 
     sign_in_url = url_for(:action => 'index', :controller => '/users', :only_path => false, :protocol => 'http')
     if request.referer == sign_in_url
       super
     else
       # redirects to the users show page when logged in
-
       dashboard_url
       #user_url(current_user.id)
     end
@@ -26,10 +25,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def configure_permitted_parameters
-  	custom_fields = %i(twitter_login provider uid kind image name)
-  	devise_parameter_sanitizer.for(:sign_up) << custom_fields
-    devise_parameter_sanitizer.for(:account_update) << custom_fields
-  end
+    def configure_permitted_parameters
+      custom_fields = %i(twitter_login provider uid kind image name)
+      devise_parameter_sanitizer.for(:sign_up) << custom_fields
+      devise_parameter_sanitizer.for(:account_update) << custom_fields
+    end
 
 end

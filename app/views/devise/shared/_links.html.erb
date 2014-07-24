@@ -1,25 +1,26 @@
-
 <br><br>
 
 <%- if devise_mapping.omniauthable? %>
-  <%#- resource_class.omniauth_providers.each do |provider| %>
-    <%#= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><!-- <br /> -->
-  <%# end -%>
-  <div class="deffered-block">
-	  <%= link_to image_tag("/images/login_tw.jpg"), omniauth_authorize_path(resource_name, :twitter), class: 'social', id: 'tw_button' %>
-	  <br>
-	  <span id="tw" class="omniSpan"></span>
-	  <%= link_to image_tag("/images/login_go.jpg"), omniauth_authorize_path(resource_name, :google_oauth2), class: 'social', id: 'go_button'  %>
-	  <br>
-	  <span id="go" class="omniSpan"></span>
-	  <%= link_to image_tag("/images/login_fb.jpg"), omniauth_authorize_path(resource_name, :facebook), class: 'social', id: 'fb_button' %>
-	  <span id="fb" class="omniSpan"></span>
 
-	  <div id="legacy-sign-in">
-  		 <img src="/images/login_devise.jpg" id="legacy" class="devise">
-	  </div>
+  <div class="deffered-block">
+
+    <%= link_to image_tag("/images/login_tw.jpg"), omniauth_authorize_path(resource_name, :twitter), class: 'social', id: 'tw_button' %>
+    <br>
+    <span id="tw" class="omniSpan"></span>
+
+    <%= link_to image_tag("/images/login_go.jpg"), omniauth_authorize_path(resource_name, :google_oauth2), class: 'social', id: 'go_button'  %>
+    <br>
+    <span id="go" class="omniSpan"></span>
+
+    <%= link_to image_tag("/images/login_fb.jpg"), omniauth_authorize_path(resource_name, :facebook), class: 'social', id: 'fb_button' %>
+    <span id="fb" class="omniSpan"></span>
+
+    <div id="legacy-sign-in">
+       <img src="/images/login_devise.jpg" id="legacy" class="devise">
+    </div>
 
   </div>
+
 <% end -%>
 
 <%- if controller_name != 'sessions' %>
@@ -46,39 +47,38 @@
 
 <script>
 
-	$("document").ready(function() {
-	  
-	  $('#sign-in-button').hide();
-	  // fade in social buttons, hidden by default
-	  var omniLinks = $('.social'); 
-	  var omniSpan = $('.omniSpan');
-	  var navBar = $('.navbar navbar-inverse nav_init');
-	  navBar.addClass("nav_enter");
+  $("document").ready(function() {
+    $('#sign-in-button').hide();
+    // fade in social buttons, hidden by default
+    var omniLinks = $('.social'); 
+    var omniSpan = $('.omniSpan');
+    var navBar = $('.navbar navbar-inverse nav_init');
+    navBar.addClass("nav_enter");
+    omniLinks.fadeIn(2000);
+    omniSpan.hide(4000);
+    /* 
+      preload the 'loading...' image so it displays 
+      immediately when user clicks one of the social buttons
+    */
+    $('<img src=\"\/images\/login_delay.jpg\"/>'); 
+  });
 
-	  omniLinks.fadeIn(2000);
-	  omniSpan.hide(4000);
+  $('#legacy').on('click', function(event) {
+    event.preventDefault();
+    $('#sign-in-button').fadeToggle();
+  });
 
-	  $('<img src=\"\/images\/login_delay.jpg\"/>'); // preload the 'loading...' image so it displays immediately when user clicks one of the social buttons
-
-	});
-
-	$('#legacy').on('click', function(event) {
-		event.preventDefault();
-		$('#sign-in-button').fadeToggle();
-	});
-
-    // display disable message to users so they know
-    // OAuth authentication is loading
-	$('.social').on('click', function() {
-	    var destination = $(this).attr('href');
-	    //$(this).html("disable msg");
-	    $(this).html('<img src=\"\/images\/login_delay.jpg\"/>'); 
-	    setTimeout(function() { 
-	      location = destination;
-	    }, 2000); // function fires after 2s if value is 2000
-	    return false;
-	});
+  /* 
+    display disable message to users so they know OAuth
+    authentication is loading
+  */
+  $('.social').on('click', function() {
+    var destination = $(this).attr('href');
+    $(this).html('<img src=\"\/images\/login_delay.jpg\"/>'); 
+    setTimeout(function() { 
+      location = destination;
+    }, 2000); // function fires after 2s if value is 2000
+    return false;
+  });
 
 </script>
-
-
