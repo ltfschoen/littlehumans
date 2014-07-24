@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
       super
     else
       # redirects to the users show page when logged in
-
       dashboard_url
       #user_url(current_user.id)
     end
@@ -26,10 +25,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def configure_permitted_parameters
-    custom_fields = %i(twitter_login provider uid kind image name)
-    devise_parameter_sanitizer.for(:sign_up) << custom_fields
-    devise_parameter_sanitizer.for(:account_update) << custom_fields
-  end
+    def configure_permitted_parameters
+      custom_fields = %i(twitter_login provider uid kind image name)
+      devise_parameter_sanitizer.for(:sign_up) << custom_fields
+      devise_parameter_sanitizer.for(:account_update) << custom_fields
+    end
 
 end

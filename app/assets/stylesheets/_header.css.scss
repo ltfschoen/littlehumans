@@ -45,18 +45,16 @@
 }
 
 .nav_init {
-  /*position: absolute;*/
   display:block;
   margin-top: 0px;
 }
 
 .nav_enter {
-  /*position: relative;*/
-    display:block;
-    margin-top: 100px;
-    height:auto;
-    -webkit-transition-duration: 3s;
-    -moz-transition-duration: 3s;
-    -o-transition-duration: 3s;
-    transition-duration: 3s;
+  display:block;
+  margin-top: 100px;
+  height:auto;
+  -webkit-transition-duration: 3s;
+  -moz-transition-duration: 3s;
+  -o-transition-duration: 3s;
+  transition-duration: 3s;
 }

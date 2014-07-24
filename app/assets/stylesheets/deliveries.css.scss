@@ -7,47 +7,30 @@ $break-medium: 330px;
 $break-large: 540px;
 
 #deliveries-list {
-
   font-weight: bold;
-
   @media screen and (max-width: $break-small) {
-        overflow-x: visible;
-    }
-
-    @media screen and (max-width: $break-medium) {
-        overflow-x: visible;
-    }
-
-    @media screen and (min-width: $break-large) {
+    overflow-x: visible;
+  }
+  @media screen and (max-width: $break-medium) {
+    overflow-x: visible;
+  }
+  @media screen and (min-width: $break-large) {
     overflow-x: auto; // allows user to scroll to right of the table width shrunk on mobile devices
-    }
-  
-
+  }
 }
 
-// .delivery-link-home {
-//         display: inline;
-//         width: 10%;
-// }
-
 .delivery-links {
-
-    @media screen and (max-width: $break-small) {
-        display: inline;
-    }
-
-    @media screen and (max-width: $break-medium) {
-        display: inline;
-    }
-
-    @media screen and (min-width: $break-large) {
+  @media screen and (max-width: $break-small) {
+    display: inline;
+  }
+  @media screen and (max-width: $break-medium) {
+    display: inline;
+  }
+  @media screen and (min-width: $break-large) {
     display: inline-block;
-    }
-
+  }
 }
 
 .delivery-centred {
-
   text-align: center;
-
 }

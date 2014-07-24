@@ -1,22 +1,20 @@
 class DeliveriesController < ApplicationController
+  
   before_action :set_delivery, only: [:show, :edit, :update, :destroy]
 
   # GET /deliveries
   # GET /deliveries.json
-  def index
-    
-  if params[:filter] == 'all'
+  def index   
+    if params[:filter] == 'all'
       @deliveries = Delivery.all 
       @all = true
     elsif params[:filter] == 'my'
       @deliveries = current_user.deliveries.all if current_user.deliveries
-    @all = false
-  else
-    @deliveries = Delivery.all
-    @all = true
-    
+      @all = false
+    else
+      @deliveries = Delivery.all
+      @all = true
     end
-        
   end
 
   # GET /deliveries/1
@@ -36,9 +34,7 @@ class DeliveriesController < ApplicationController
   # POST /deliveries
   # POST /deliveries.json
   def create
-
     @delivery = current_user.deliveries.new(delivery_params)
-
     respond_to do |format|
       if @delivery.save
         format.html { redirect_to @delivery, notice: 'Delivery was successfully created.' }
@@ -75,6 +71,7 @@ class DeliveriesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_delivery
       @delivery = current_user.deliveries.find(params[:id])
@@ -84,4 +81,5 @@ class DeliveriesController < ApplicationController
     def delivery_params
       params.require(:delivery).permit(:name_baby, :time_born, :name_location_born)
     end
+
 end

@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   has_many :rosters
-
   has_many :deliveries
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -23,8 +22,7 @@ class User < ActiveRecord::Base
                             email:auth.info.email,
                             password:Devise.friendly_token[0,20]
                           )
-      end
-       
+      end 
     end
   end
 

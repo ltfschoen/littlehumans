@@ -1,4 +1,5 @@
 class RostersController < ApplicationController
+  
   before_action :set_roster, only: [:show, :edit, :update, :destroy]
 
   # GET /rosters
@@ -24,13 +25,7 @@ class RostersController < ApplicationController
   # POST /rosters
   # POST /rosters.json
   def create 
-
-    # respond_to do |format|
-    #     format.json { render json: @url_resp.to_json }
-    #     format.html { redirect_to user_path(current_user), notice: 'httparty response errors.' }
-
     @roster = current_user.rosters.new(roster_params)
-
     respond_to do |format|
       if @roster.save
         format.html { redirect_to @roster, notice: 'Roster was successfully created.' }
@@ -76,4 +71,5 @@ class RostersController < ApplicationController
     def roster_params
       params.require(:roster).permit(:name_shift, :name_hospital, :name_location, :time_shift_start, :time_shift_end, :time_shift_duration)
     end
+
 end
