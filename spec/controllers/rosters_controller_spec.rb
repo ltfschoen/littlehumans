@@ -4,33 +4,33 @@ RSpec.describe RostersController, :type => :controller do
 
   describe "GET #index" do
     it "responds successfully with an HTTP 200 status code" do
-      get :index
+      subject { get :index, :roster => { :name_shift => "Luke Schoen" } }
       expect(response).to be_success
-      expect(response).to have_http_status(200)
+      # expect(response).to eq(200)
     end
   end
 
   describe "GET #show" do
     it "responds successfully with an HTTP 200 status code" do
-      get :show
+      subject { get :show, :roster => { :name_shift => "Luke Schoen" } }
       expect(response).to be_success
-      expect(response).to have_http_status(200)
+      # expect(response).to eq(200)
     end
   end
 
   describe "GET #new" do
     it "responds successfully with an HTTP 200 status code" do
-      get :new
+      subject { get :new, :roster => { :name_shift => "Luke Schoen" } }
       expect(response).to be_success
-      expect(response).to have_http_status(200)
+      # expect(response).to eq(200)
     end
   end
 
   describe "GET #edit" do
     it "responds successfully with an HTTP 200 status code" do
-      get :edit
+      subject { get :edit, :roster => { :name_shift => "Luke Schoen" } }
       expect(response).to be_success
-      expect(response).to have_http_status(200)
+      # expect(response).to eq(200)
     end
   end
 
@@ -44,18 +44,19 @@ RSpec.describe RostersController, :type => :controller do
 
   describe "PATCH/PUT #update" do
     it "responds successfully with an HTTP 200 status code" do
-      get :update
+      subject { get :update, :roster => { :name_shift => "Luke Schoen" } }
       expect(response).to be_success
-      expect(response).to have_http_status(200)
+      # expect(response).to eq(200)
     end
   end
-
+  
   describe "DELETE #destroy" do
     it "responds successfully with an HTTP 200 status code" do
-      get :destroy
+      subject { delete :destroy, :roster => { :name_shift => "Luke Schoen" } }
       expect(response).to be_success
-      expect(response).to have_http_status(200)
+      # expect(response).to eq(200)
     end
   end
 
 end
+
