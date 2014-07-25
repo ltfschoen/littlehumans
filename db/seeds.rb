@@ -31,7 +31,7 @@ roster2.save
 delivery = Delivery.new
 delivery.name_baby = "Elmo"
 delivery.time_born = Time.now
-delivery.name_location_born = 'RPA'
+delivery.name_location_born = "RPA"
 delivery.user_id = user.id        # first user id
 delivery.roster_id = roster.id      # first user roster id
 delivery.save
@@ -39,7 +39,7 @@ delivery.save
 delivery = Delivery.new
 delivery.name_baby = "Fido"
 delivery.time_born = Time.now
-delivery.name_location_born = 'RNSH'
+delivery.name_location_born = "RNSH"
 delivery.user_id = 100
 delivery.roster_id = roster2.id
 delivery.save
