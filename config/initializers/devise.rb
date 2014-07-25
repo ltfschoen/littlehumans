@@ -4,35 +4,35 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  config.secret_key = ENV['DEVISE_SECRET_KEY']
+  config.secret_key = ENV["DEVISE_SECRET_KEY"]
 
-  require "omniauth-facebook"
-  require "omniauth-twitter"
-  require "omniauth-google-oauth2"
+  require 'omniauth-facebook'
+  require 'omniauth-twitter'
+  require 'omniauth-google-oauth2'
 
-  config.omniauth :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET']
+  config.omniauth :facebook, ENV["FACEBOOK_ID"], ENV["FACEBOOK_SECRET"]
 
-  if Rails.env == 'development' 
-      config.omniauth :twitter, ENV['TWITTER_LOCALHOST_KEY'], ENV['TWITTER_LOCALHOST_SECRET']
+  if Rails.env == "development"
+      config.omniauth :twitter, ENV["TWITTER_LOCALHOST_KEY"], ENV["TWITTER_LOCALHOST_SECRET"]
   end
 
-  if Rails.env == 'production' 
-	  config.omniauth :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
+  if Rails.env == "production"
+    config.omniauth :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"]
   end
 
-  if Rails.env == 'development' 
-    config.omniauth :google_oauth2, ENV['GOOGLE_LOCALHOST_KEY'], ENV['GOOGLE_LOCALHOST_SECRET'], { access_type: "offline", approval_prompt: "" }
+  if Rails.env == "development" 
+    config.omniauth :google_oauth2, ENV["GOOGLE_LOCALHOST_KEY"], ENV["GOOGLE_LOCALHOST_SECRET"], { :access_type => "offline", :approval_prompt => "" }
   end
 
-  if Rails.env == 'production' 
-    config.omniauth :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], { access_type: "offline", approval_prompt: "" }
+  if Rails.env == "production"
+    config.omniauth :google_oauth2, ENV["GOOGLE_KEY"], ENV["GOOGLE_SECRET"], { :access_type => "offline", :approval_prompt => "" }
   end
-  	
+    
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -41,7 +41,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is

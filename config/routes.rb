@@ -27,7 +27,7 @@ LittlehumansApp::Application.routes.draw do
     end
   end
 
-  get '/dashboard' => "users#dashboard", as: :dashboard
+  get "/dashboard" => "users#dashboard", :as => :dashboard
 
   devise_scope :user do
     root :to => "devise/sessions#new"
@@ -46,5 +46,4 @@ LittlehumansApp::Application.routes.draw do
   # devise_scope :user do
   #   root :to => 'devise/sessions#new'
   # end
-
 end

@@ -1,19 +1,20 @@
 <br><br><br>
 
 <div class="delivery-links">
-  <%= link_to 'Back', user_path(current_user), class: "btn btn-default btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
+  <%= link_to "Back", user_path(current_user), :class => "btn btn-default btn-lg active", :method => :get, :id => "make-new-delivery", :style => "width: 100%;" %> 
 </div>
 
 <div class="delivery-links">
-  <%= link_to 'Create', '/deliveries/new', class: "btn btn-success btn-lg active", method: :get, id: 'make-new-delivery', style:"width: 100%;" %> 
+  <%= link_to "Create", "/deliveries/new", :class => "btn btn-success btn-lg active", :method => :get, :id => "make-new-delivery", :style => "width: 100%;" %> 
 </div>
 
 <div class="delivery-links">
-  <%= link_to 'All', '/deliveries?filter=all', class: "btn btn-default btn-lg active", method: :get, id: 'fetch-all-deliveries', style:"width: 100%;" %> 
+  <!-- fetch all deliveries -->
+  <%= link_to "All", "/deliveries", :class => "btn btn-default btn-lg active", :method => :get, :id => "fetch-all-deliveries", :style => "width: 100%;" %> 
 </div>
 
 <div class="delivery-links">
-  <%= link_to 'My', '/deliveries?filter=my', class: "btn btn-default btn-lg active", method: :get, id: 'fetch-my-deliveries', style:"width: 100%;" %> 
+  <%= link_to "My", "/deliveries?filter=my", :class => "btn btn-default btn-lg active", :method => :get, :id => "fetch-my-deliveries", :style => "width: 100%;" %> 
 </div>
 
 <% if @all == true %>
@@ -45,7 +46,7 @@
       <td><%= delivery.name_location_born %></td>
       <td><%= delivery.user.name if delivery.user %> <%= delivery.user.id if delivery.user %></td>
       <% if @all == false %> <!-- only let midwife user who created baby make changes -->
-      <td><%= link_to 'Destroy', delivery, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %></td>
+      <td><%= link_to "Destroy", delivery, :method => :delete, :data => { :confirm => "Are you sure?" }, :class => "btn btn-default" %></td>
       <% end %>
     </tr>
     <% end %>
@@ -59,20 +60,20 @@
   function showDelivery(delivery) {
     console.log(delivery);
     var options = {
-      url: '/deliveries/' + delivery, 
-      type: 'get',
-      dataType: 'json'
+      url: "/deliveries/" + delivery, 
+      type: "get",
+      dataType: "json"
     }
 
     $.ajax(options).done(function(delivery) {
-      console.log('ajax calendar success');
+      console.log("ajax calendar success");
       console.log(delivery.id);
-      dom = '#fake_click_' + delivery.id;
+      dom = "#fake_click_" + delivery.id;
       console.log(dom);
       //https://developer.mozilla.org/en-US/docs/Web/API/Window.location
       var initialPage = window.location.pathname;
       console.log(initialPage);
-      b = window.location.replace(initialPage + '/' + delivery.id);
+      b = window.location.replace(initialPage + "/" + delivery.id);
       console.log(b);
     }).done(function(dom_data) { // success handler
       console.log("data is: " + dom_data);

@@ -4,15 +4,15 @@
 
   <div class="deffered-block">
 
-    <%= link_to image_tag("/images/login_tw.jpg"), omniauth_authorize_path(resource_name, :twitter), class: 'social', id: 'tw_button' %>
+    <%= link_to image_tag("/images/login_tw.jpg"), omniauth_authorize_path(resource_name, :twitter), :class => "social", :id => "tw_button" %>
     <br>
     <span id="tw" class="omniSpan"></span>
 
-    <%= link_to image_tag("/images/login_go.jpg"), omniauth_authorize_path(resource_name, :google_oauth2), class: 'social', id: 'go_button'  %>
+    <%= link_to image_tag("/images/login_go.jpg"), omniauth_authorize_path(resource_name, :google_oauth2), :class => "social", :id => "go_button"  %>
     <br>
     <span id="go" class="omniSpan"></span>
 
-    <%= link_to image_tag("/images/login_fb.jpg"), omniauth_authorize_path(resource_name, :facebook), class: 'social', id: 'fb_button' %>
+    <%= link_to image_tag("/images/login_fb.jpg"), omniauth_authorize_path(resource_name, :facebook), :class => 'social', :id => "fb_button" %>
     <span id="fb" class="omniSpan"></span>
 
     <div id="legacy-sign-in">
@@ -23,31 +23,32 @@
 
 <% end -%>
 
-<%- if controller_name != 'sessions' %>
+<%- if controller_name != "sessions" %>
   <%= link_to "Sign in", new_session_path(resource_name) %><br />
 <% end -%>
 
-<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+<%- if devise_mapping.registerable? && controller_name != "registrations" %>
   <div id="legacy-sign-up">
-    <%= link_to image_tag("/images/login_devise_up.jpg"), new_registration_path(resource_name), class: 'devise'  %>
+    <%= link_to image_tag("/images/login_devise_up.jpg"), new_registration_path(resource_name), :class => "devise"  %>
   </div>
 <% end -%>
 
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+<%- if devise_mapping.recoverable? && controller_name != "passwords" && controller_name != "registrations" %>
   <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
 <% end -%>
 
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+<%- if devise_mapping.confirmable? && controller_name != "confirmations" %>
   <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
 <% end -%>
 
-<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != "unlocks" %>
   <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
 <% end -%>
 
 <script>
 
   $("document").ready(function() {
+
     $('#sign-in-button').hide();
     // fade in social buttons, hidden by default
     var omniLinks = $('.social'); 

@@ -62,20 +62,30 @@ group :development, :test do
 end
 
 # testing gems 
-group :test do
+group :development, :test do
 
 	gem 'rspec-rails'
+
+  # dependency for rspec-rails and guard-rspec
+  gem 'rspec-mocks'
+
+  # runs tests when test files change https://github.com/guard/guard-rspec
+  # run with bundle exec guard 
+  gem 'guard-rspec', require: false
 
 	gem 'capybara'
 
 	# for better tests
 	gem 'shoulda'
+
+  # simpler tests for associations https://github.com/thoughtbot/shoulda-matchers
+  gem 'shoulda-matchers', require: false
 	
 	# mocking and stubbing
 	gem 'mocha'
 
 	# added simplecov to see how much code is covered by our tests
-	gem 'simplecov', :require => false
+	gem 'simplecov', require: false
 
 	# testing with fake users in rspec
 	gem 'factory_girl'
