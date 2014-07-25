@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Roster do
+RSpec.describe Roster, :type => :model do
 
   context "associations" do
     it { should belong_to :user }

@@ -1,34 +1,44 @@
 require 'spec_helper'
 
-describe StaticPagesController do
+RSpec.describe StaticPagesController, :type => :controller do
 
-  context '#about_us' do
-    it 'loads page' do
-      response.should be_success
+  describe "GET #about_us" do
+    it "responds successfully with an HTTP 200 status code" do
+      get :about_us
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
     end
   end
 
-  context '#contact_us' do
-    it 'loads page' do
-      response.should be_success
+  describe "GET #contact_us" do
+    it "responds successfully with an HTTP 200 status code" do
+      get :contact_us
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
     end
   end
 
-  context '#privacy' do
-    it 'loads page' do
-      response.should be_success
+  describe "GET #privacy" do
+    it "responds successfully with an HTTP 200 status code" do
+      get :privacy
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
     end
   end
 
-  context '#terms_and_cond' do
-    it 'loads page' do
-      response.should be_success
+  describe "GET #terms_and_cond" do
+    it "responds successfully with an HTTP 200 status code" do
+      get :terms_and_cond
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
     end
   end
 
-  context '#help' do
-    it 'loads page' do
-      response.should be_success
+  describe "GET #help" do
+    it "responds successfully with an HTTP 200 status code" do
+      get :help
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
     end
   end
 

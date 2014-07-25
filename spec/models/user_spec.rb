@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do
+RSpec.describe User, :type => :model do
 
   context "associations" do
     it { should have_many :rosters }

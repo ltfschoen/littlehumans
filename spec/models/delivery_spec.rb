@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Delivery do
+RSpec.describe Delivery, :type => :model do
 
   context "associations" do
     it { should belong_to :user }
