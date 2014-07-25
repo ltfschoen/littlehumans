@@ -5,9 +5,11 @@ class DeliveriesController < ApplicationController
   # GET /deliveries
   # GET /deliveries.json
   def index   
+    # display only babies created by logged in user if click the 'my' button
     if params[:filter] == 'my'
       @deliveries = current_user.deliveries.all if current_user.deliveries
       @all = false
+    # otherwise display babies created by all users
     else 
       @deliveries = Delivery.all
       @all = true
