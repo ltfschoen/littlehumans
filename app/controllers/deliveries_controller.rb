@@ -1,5 +1,4 @@
 class DeliveriesController < ApplicationController
-  
   before_action :set_delivery, only: [:show, :edit, :update, :destroy]
 
   # GET /deliveries
@@ -34,13 +33,14 @@ class DeliveriesController < ApplicationController
   # POST /deliveries.json
   def create
     @delivery = current_user.deliveries.new(delivery_params)
+
     respond_to do |format|
       if @delivery.save
-        format.html { redirect_to @delivery, notice: 'Delivery was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @delivery }
+        format.html { redirect_to @delivery, :notice => "Delivery was successfully created." }
+        format.json { render :action => "show", :status => :created, :location => @delivery }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @delivery.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @delivery.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -50,11 +50,11 @@ class DeliveriesController < ApplicationController
   def update
     respond_to do |format|
       if @delivery.update(delivery_params)
-        format.html { redirect_to @delivery, notice: 'Delivery was successfully updated.' }
+        format.html { redirect_to @delivery, :notice => "Delivery was successfully updated." }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @delivery.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @delivery.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -71,14 +71,13 @@ class DeliveriesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_delivery
-      @delivery = current_user.deliveries.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_delivery
+    @delivery = current_user.deliveries.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def delivery_params
-      params.require(:delivery).permit(:name_baby, :time_born, :name_location_born)
-    end
-
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def delivery_params
+    params.require(:delivery).permit(:name_baby, :time_born, :name_location_born)
+  end
 end
