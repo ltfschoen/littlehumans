@@ -20,7 +20,11 @@ module LittlehumansApp
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-  # test to try and get mixins loaded when deploy to heroku
+    # test to try and get mixins loaded when deploy to heroku
     config.assets.initialize_on_precompile = false
+
+    # show rails asset pipeline where vendor assets are located 
+    # http://makandracards.com/makandra/8951-rails-asset-pipeline-how-to-organize-stylesheets-in-sub-folders
+    config.assets.paths += Dir["#{Rails.root}/vendor/assets/*"].sort_by { |dir| -dir.size }
   end
 end
