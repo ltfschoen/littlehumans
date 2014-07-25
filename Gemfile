@@ -62,9 +62,12 @@ group :development, :test do
 end
 
 # testing gems 
-group :test do
+group :development, :test do
 
 	gem 'rspec-rails'
+
+  # dependency for rspec-rails and guard-rspec
+  gem 'rspec-mocks'
 
   # runs tests when test files change https://github.com/guard/guard-rspec
   # run with bundle exec guard 
