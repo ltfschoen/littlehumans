@@ -15,11 +15,10 @@ class UsersController < ApplicationController
     #logger.info("cancelled_array response is *** #{@cancelled_array}")
     
     @user = current_user
-    
-    # access to environment variables holding twitter client key, secret, and tokens
-    require './lib/assets/client_twitter'
 
-    # grab twitter key, secret, and tokens from library folder to get tweets 
+    # grab twitter key, secret, and tokens from library folder to get tweets.
+    # note that the library/assets folder holding this info is autoloaded in 
+    # application.rb, so it is not necesary to require './lib/assets/client_twitter'
     @client = ClientTwitter::client_twitter
     
     # get latest 5 tweets from twitter username 'MidwivesACM'
