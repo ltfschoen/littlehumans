@@ -113,6 +113,10 @@ gem 'google_calendar'
 gem 'haml'
 gem 'haml-rails', :group => :development
 
+# active record store instead of cookie store to overcome 
+# cookie overflow error due to 4kb cookie store limit
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
