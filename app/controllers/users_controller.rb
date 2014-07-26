@@ -36,52 +36,6 @@ class UsersController < ApplicationController
     redirect_to user_path(current_user)
   end
 
-  def calendar
-    google_key = ENV["GOOGLE_KEY"] 
-    google_simple = ENV["GOOGLE_SIMPLE"] # generate at https://code.google.com/apis/console/
-    google_calendarid = "m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com" # generate from settings in google calendar 
-
-    if params[:filter] == "get"
-      url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}"
-      @url_resp = HTTParty.get(url) 
-
-      logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
-      #binding.pry
-
-      respond_to do |format|
-          format.json { render :json => @url_resp.to_json }
-          format.html { redirect_to user_path(current_user), :notice => 'httparty response errors.' }
-      end
-
-    elsif params[:filter] == "post" && params[:new_status] == "cancelled"
-      new_status = params[:new_status]
-      event_id = params[:event_id]
-
-      # oauth for calendar using google_calendar gem - partially works but on hold
-      # @cal = Google::Calendar.new(:username => ENV['G_USER'],
-      #                             :password => ENV['G_PASS'],
-      #                             :app_name => 'Littlehumans')
-      
-      # POST request  - partially works but on hold
-      # url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
-      
-      # PATCH request
-      url = "https://www.googleapis.com/calendar/v3/calendars/#{google_calendarid}/events/#{event_id}?key=#{google_simple}&access_token=#{google_key}&status=#{new_status}"
-      @url_resp = HTTParty.patch(url)#.parsed_response
-
-      logger.info("url_httparty response is *** #{@url_resp.to_json}") # display in rails console
-      #binding.pry
-
-      respond_to do |format|
-          format.json { render :json => @url_resp.to_json }
-          format.html { redirect_to user_path(current_user), :notice => "httparty response errors." }
-      end
-
-    else
-      params[:filter] == nil
-    end
-  end
-
   # GET /users/new
   def new
     @user = resource_name.users.new

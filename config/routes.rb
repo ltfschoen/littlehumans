@@ -21,10 +21,6 @@ LittlehumansApp::Application.routes.draw do
   resources :users do
     resources :rosters
     resources :deliveries
-    collection do
-      get :calendar # google calendar
-      post :calendar # google calendar
-    end
   end
 
   get "/dashboard" => "users#dashboard", :as => :dashboard
