@@ -1,7 +1,7 @@
 module ClientTwitter
   
+  # http://stackoverflow.com/questions/9917610/how-to-use-modules-in-rails-application
   def self.client_twitter()
-    # get tweets 
     @client = Twitter::REST::Client.new do |config| 
       config.consumer_key        = ENV["TWITTER_KEY"]
       config.consumer_secret     = ENV["TWITTER_SECRET"]
