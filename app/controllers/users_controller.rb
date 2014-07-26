@@ -12,18 +12,15 @@ class UsersController < ApplicationController
     @rosters = Roster.where("name_shift IS NOT NULL").select("distinct name_shift").all
     
     @cancelled_array = @rosters.map(&:name_shift)
-    
-    logger.info("cancelled_array response is *** #{@cancelled_array}")
+    #logger.info("cancelled_array response is *** #{@cancelled_array}")
     
     @user = current_user
     
-    # get tweets 
-    @client = Twitter::REST::Client.new do |config| 
-      config.consumer_key        = ENV["TWITTER_KEY"]
-      config.consumer_secret     = ENV["TWITTER_SECRET"]
-      config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
-      config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"]
-    end
+    # access to environment variables holding twitter client key, secret, and tokens
+    require './lib/assets/client_twitter'
+
+    # grab twitter key, secret, and tokens from library folder to get tweets 
+    @client = ClientTwitter::client_twitter
     
     # get latest 5 tweets from twitter username 'MidwivesACM'
     @tweet = @client.user_timeline("MidwivesACM", { :count => 3, :include_rts => true })
