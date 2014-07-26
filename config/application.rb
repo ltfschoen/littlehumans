@@ -26,5 +26,9 @@ module LittlehumansApp
     # show rails asset pipeline where vendor assets are located 
     # http://makandracards.com/makandra/8951-rails-asset-pipeline-how-to-organize-stylesheets-in-sub-folders
     config.assets.paths += Dir["#{Rails.root}/vendor/assets/*"].sort_by { |dir| -dir.size }
+
+    # autoload custom directories with modules and classes
+    # http://stackoverflow.com/questions/3356742/best-way-to-load-module-class-from-lib-folder-in-rails-3
+    config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
   end
 end
