@@ -14,7 +14,7 @@ var fetchRoster = function(url) {
       start = new Date(start.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19) );
       end = new Date(end.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19));
       hours = hours + ( end - start ) / ( 1000 * 60 * 60 );
-
+      hours = hours.toFixed(1);
       return (hours + ' hrs'); // returns 0.5 hrs
     }; // if not start and end empty
   }; //function count hours
@@ -22,7 +22,7 @@ var fetchRoster = function(url) {
   // JSON of public calendar currently under test
   var addRoster = function(data) {
     $('#calendar-list').html(''); // reset DOM value to empty
-    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Status</td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
+    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
     console.log(data);
 
     // grab the array stored in a hidden temporary DOM element containing event ids that we want to filter out and not display (i.e. where we have clicked the cancell button. 
@@ -45,9 +45,8 @@ var fetchRoster = function(url) {
           // returns .date (if all day event), or .dateTime (if duration specified)
           '</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
           '</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +    
-          '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')) +
-          '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')) +
-          '</td><td id="' + this.id + '">' + (this.status ? this.status : '') +       
+          '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')).replace('T', ' ') +
+          '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')).replace('T', ' ') +     
           '</td></tr>'
         );
       };
@@ -128,39 +127,4 @@ var updateRoster = function(url) {
   }).error(function(calendar_data) { // failure handler
     console.log("error is: " + calendar_data);
   }); // ajax etc
-};
-
-var createEvent = function(url) {
-  
-  var createRosterEvent = function(data) {
-    console.log("in addRoster with data: " + data);
-    $('#exchange-search').hide();
-    $('#exchange-main').hide();
-    $('#exchange-roster').show();
-  };
-
-  var options = {
-    // url: '/rosters/show?filter=post&new_status=' + new_status + '&event_id=' + url,
-    url: '/rosters/show?filter=post', 
-    type: 'get', // http post request is performed in controller
-    dataType: 'json',
-    // data: 'hi'
-
-  }; // options
-
-  $.ajax(options).done(function(calendar) {
-    console.log('ajax calendar action success');
-    console.log(calendar);
-    // after get calendar from controller server side
-  }).done(function(calendar_data) { // success handler
-    console.log("data is: " + calendar_data);
-    // refresh the page so the list is redisplayed with updated events 
-
-    // DISABLE RELOAD TEMPORARILY
-    // window.location.reload(true);
-    // createRosterEvent(calendar_data);
-  }).error(function(calendar_data) { // failure handler
-    console.log("error is: " + calendar_data);
-  }); // ajax etc
-
 }; // updateRoster

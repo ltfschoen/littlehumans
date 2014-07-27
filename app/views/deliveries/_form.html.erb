@@ -14,22 +14,25 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name_baby %><br>
-    <%= f.text_field :name_baby %>
+    <%= f.label "Baby Name" %>&nbsp;&nbsp;
+    <%= f.text_field :name_baby, :size => 36 %>
   </div>
 
   <div class="field">
-    <%= f.label :time_born %><br>
+    <%= f.label "Date of Birth" %>&nbsp;&nbsp;
     <%= f.datetime_select :time_born %>
   </div>
 
   <div class="field">
-    <%= f.label :name_location_born %><br>
-    <%= f.text_field :name_location_born %>
+    <%= f.label "Birthplace" %>&nbsp;&nbsp;
+    <%= f.text_field :name_location_born, :size => 37 %>
   </div>
 
   <div class="actions">
-    <%= f.submit("Update", data: { :disable_with => "Please wait.." }, :class => "btn btn-success") %>
+    <%= link_to "Back", :back, :class => "btn btn-default btn-lg active" %>&nbsp;
+
+    <%= f.submit("Create", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
+    <!-- <a href="#" id="create_event" class="btn btn-default btn-lg responsive">Create Event</a> -->
   </div>
 
 <% end %>

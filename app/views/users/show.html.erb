@@ -37,30 +37,28 @@
       <% end %>
     </div>
 
-    <div class="col-sm-9" id="exchange-search" >        
-      <br>
-      <div class="table-responsive">
-        <h1>My Drugs</h1><br>
-        <table id="movies-list" class="table table-hover">
-          <!-- ajax outputs -->
-          
-        </table>
-      </div>
-    </div> 
-
     <div class="col-sm-9" id="exchange-roster" >        
       <!-- responsive bootstrap 'table' and 'table-responsive' and 'active' css -->
       <div class="table-responsive"><br>
 
+
+
+        <div class="delivery-links">
+          <%= link_to "New Event", "/rosters/new", :class => "btn btn-success btn-lg active", :style => "width: 100%;" %> 
+        </div>
+
+        <div class="delivery-links">
+          <%= link_to "View Calendar", "/rosters?filter=view", :class => "btn btn-default btn-lg responsive", :style => "width: 100%;" %> 
+        </div>
+
         <div style="inline"><h1>My Roster</h1>
         </div>&nbsp;
 
-        <div style="inline"><a href="#" id="create_event" class="btn btn-default btn-lg responsive">Create Event</a><a href="/rosters" id="roster" class="btn btn-default btn-lg responsive">Edit Roster</a>
-        </div><br><br>
-
         <a href="https://www.google.com/calendar/embed?src=m88eksashs23rt5r00ji2vpn2g%40group.calendar.google.com&ctz=Australia/Sydney" target="new">Test Public Google Calendar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;  
 
-        <a href="https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com" target="new">View JSON</a>
+        <a href="https://www.googleapis.com/calendar/v3/calendars/m88eksashs23rt5r00ji2vpn2g@group.calendar.google.com/events?key=AIzaSyAY38OxGwCWsZZCyhRuaf4IpmxGSLUqTGg&access_token=733619507900-0h7r35475cpc7e0gckr943u6vmqund9c.apps.googleusercontent.com" target="new">View JSON</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+
+        <a href="mailto:ltfschoen@gmail.com" target="new">Request Calendar Access</a>
         
         <table id="calendar-list" class="table table-hover">
           <!-- ajax outputs -->

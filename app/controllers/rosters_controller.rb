@@ -1,10 +1,43 @@
 class RostersController < ApplicationController
-  before_action :set_user, only: [:calendar]
+  #before_action :set_user, only: [:calendar]
 
   # GET /rosters
   # GET /rosters.json
   def index
     @rosters = current_user.rosters.all
+
+    # TO-DO - shift to post action area
+    @roster = current_user.rosters.new(roster_params)
+
+    if params[:filter] != "view" # do not run this if use clicks to "view" the calendar
+
+      require 'rubygems'
+      require 'google_calendar'
+
+      cal = Google::Calendar.new(:username => ENV['G_USER'],
+                                 :password => ENV['G_PASS'],
+                                 :app_name => 'Littlehumans',
+                                 :calendar => 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com')
+
+      logger.info("roster is *** #{@roster.to_json}")
+      logger.info("name_shift is *** #{@roster["name_shift"]}")
+
+      event = cal.create_event do |e|
+        e.title = @roster["name_shift"]
+        e.where = @roster["name_location_shift"] + ", " + @roster["name_location_hospital"]
+        e.start_time = @roster["time_shift_start"]
+        e.end_time = @roster["time_shift_end"]
+      end
+
+      logger.info("event is *** #{event.to_json}") # display in rails console
+
+      logger.info("cal events is *** #{cal.events.to_json}") # display in rails console
+
+      respond_to do |format|
+          format.html { redirect_to user_path(current_user), :notice => 'calendar event created.' }
+      end
+    end
+
   end
 
   # GET /rosters/1
@@ -118,12 +151,13 @@ class RostersController < ApplicationController
 
   private
   #Use callbacks to share common setup or constraints between actions.
-  def set_user
-    @user = User.find(params[:id])
-  end
+  # def set_user
+  #   @user = User.find(params[:id])
+  # end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def roster_params
-    params.require(:roster).permit(:name_shift, :name_hospital, :name_location, :time_shift_start, :time_shift_end, :time_shift_duration)
+  def roster_params 
+    # http://guides.rubyonrails.org/action_controller_overview.html#more-examples
+    params.fetch(:roster, {}).permit(:name_shift, :name_location_hospital, :name_location_shift, :time_shift_start, :time_shift_end, :time_shift_duration)
   end
 end

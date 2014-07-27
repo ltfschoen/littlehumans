@@ -1,5 +1,19 @@
-<%= form_for(@roster) do |f| %>
+<!-- TESTING -->
+<%# ActiveSupport::TimeZone.new('Australia/Sydney').local_to_utc(t) %>
+<%# timezone = ActiveSupport::TimeZone.new('Australia/Sydney') %>
+<%# Time.use_zone(timezone){} %>
 
+<%#= t = Time.now %>
+<%#= offset = ActiveSupport::TimeZone.new('Australia/Sydney').utc_offset() %>
+<%# t = t.in_time_zone("Australia/Sydney") %>
+<%# t += offset %>
+<%#= t %>
+<%#= ActiveSupport::TimeZone.new('Australia/Sydney') %>
+<%#= config.time_zone %>
+<%#= Time.zone %>
+
+<%#= form_for(@roster) do |f| %>
+<%= form_for @roster, :method => 'get' do |f| %>
   <% if @roster.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@roster.errors.count, "error") %> prohibited this roster from being saved:</h2>
@@ -12,37 +26,62 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name_shift %><br>
-    <%= f.text_field :name_shift %>
+    <%= f.label "Shift" %>&nbsp;&nbsp;
+    <%= f.text_field :name_shift, :size => 39 %>
   </div>
 
   <div class="field">
-    <%= f.label :name_hospital %><br>
-    <%= f.text_field :name_hospital %>
+    <%= f.label "Hospital" %>&nbsp;&nbsp;
+    <%= f.text_field :name_location_hospital, :size => 36 %>
   </div>
 
   <div class="field">
-    <%= f.label :name_location %><br>
-    <%= f.text_field :name_location %>
+    <%= f.label "Department" %>&nbsp;&nbsp;
+    <%= f.text_field :name_location_shift, :size => 33 %>
   </div>
 
   <div class="field">
-    <%= f.label :time_shift_start %><br>
+    <%= f.label "Start Time" %>&nbsp;&nbsp;
     <%= f.datetime_select :time_shift_start %>
   </div>
 
   <div class="field">
-    <%= f.label :time_shift_end %><br>
+    <%= f.label "End Time" %>&nbsp;&nbsp;&nbsp;&nbsp;
     <%= f.datetime_select :time_shift_end %>
   </div>
 
-  <div class="field">
-    <%= f.label :time_shift_duration %><br>
-    <%= f.text_field :time_shift_duration %>
-  </div>
+  <!-- <div class="field"> -->
+    <%#= f.label :time_shift_duration %><br>
+    <%#= f.text_field :time_shift_duration %>
+  <!-- </div> -->
 
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to "Back", :back, :class => "btn btn-default btn-lg active" %>&nbsp;
+
+    <%= f.submit("Create", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
+    <!-- <a href="#" id="create_event" class="btn btn-default btn-lg responsive">Create Event</a> -->
   </div>
   
 <% end %>
+
+<% content_for :head do %>
+  <script type="text/javascript">
+    <%= render 'rosters/create_event.js' %>
+  </script>
+<% end %>
+
+<script type="text/javascript">
+  
+  // clicked the Create Event button
+  $('#create_event').on('click', function(event) {
+    console.log("create_event pressed1111");
+    event.preventDefault();
+    $('#exchange-search').hide();
+    $('#exchange-main').hide();
+    $('#exchange-roster').show();
+    createEvent();
+  });
+
+</script>
+<%#= javascript_include_tag "switch_pages.js" %>
+
