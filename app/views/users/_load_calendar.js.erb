@@ -1,0 +1,132 @@
+var fetchRoster = function (url) {
+
+  var countHours = function(start, end){
+    // sample of start is 2014-03-26T10:00:00+11:00
+    // sample of end is 2014-03-26T10:30:00+11:00 
+    console.log('start:' + start);
+    console.log('end:' + end);
+
+    if (start === '' || end === '') { 
+      return '1 day';
+    } else {
+      var hours = 0;
+
+      start = new Date(start.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19) );
+      end = new Date(end.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19));
+      hours = hours + ( end - start ) / ( 1000 * 60 * 60 );
+
+      return (hours + ' hrs'); // returns 0.5 hrs
+    }; // if not start and end empty
+  }; //function count hours
+
+  // JSON of public calendar currently under test
+  var addRoster = function(data) {
+    $('#calendar-list').html(''); // reset DOM value to empty
+    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Status</td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
+    console.log(data);
+
+    // grab the array stored in a hidden temporary DOM element containing event ids that we want to filter out and not display (i.e. where we have clicked the cancell button. 
+    <% str = @cancelled_array.map{|item| "'#{item}'" }.join(', ') %>
+    cancelledEventsArray = [<%= str.html_safe %>];
+    //cancelledEventsArray = $('#cancelled-array').html();
+    console.log(cancelledEventsArray);
+
+    $(data.items).each(function() { 
+
+      // filter to only display calendar events retrieved from Google Calendar that we have not previously clicked to cancel (and stored their element id in our database)
+      if (cancelledEventsArray.indexOf(this.id) == -1) {
+        $('#calendar-list').append(
+          // add cycle colours with bootstrap after figure how to escape char
+          //'<tr class="' + cycle_class + '"><td>' + 
+          '<tr class="active"><td>' + (this.creator ? this.creator.displayName : '') + 
+          '</td><td>' + (this.summary ? this.summary : '') + 
+          '</td><td>' + (this.description ? this.description.slice(0,20) : '') + // max characters 21
+          '</td><td>' + (this.location ? this.location.split(",", 1) : '') + // max characters 21
+          // returns .date (if all day event), or .dateTime (if duration specified)
+          '</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
+          '</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +    
+          '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')) +
+          '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')) +
+          '</td><td id="' + this.id + '">' + (this.status ? this.status : '') +       
+          '</td></tr>'
+        );
+      };
+
+    });  // each data item
+  }; // addRoster 
+
+  // ajax request for google calendar via calendar method in users controller
+  // purpose is alternative to direct ajax request that reveals google security keys
+  var options = {
+    url: '/rosters/show?filter=get', 
+    type: 'get',
+    dataType: 'json'
+  };
+
+  // ajax chain of success handlers sourcing the calendar in json format
+  $.ajax(options).done(function(calendar) {
+    console.log('ajax calendar success');
+    console.log(calendar);
+    // after get calendar from controller server side
+  }).done(function(calendar_data) { // success handler
+    console.log("data is: " + calendar_data);
+    addRoster(calendar_data);
+    // optional: schedule subsequent requests repeatedly every 5 seconds
+    //setTimeout(loadGoogleAPI, 1000); 
+  }).error(function(calendar_data) { // failure handler
+    console.log("error is: " + calendar_data);
+  });
+}; // fetchRoster
+
+// loads OAuth2 to allow connection to Google APIs (i.e. Google Calendar)
+function loadGoogleAPI() {
+  $('#exchange-main').show();
+  $('#exchange-search').hide();
+  $('#exchange-roster').hide();
+  fetchRoster();
+};
+
+// ajax call to users/calender when user clicks a roster anchor tag
+// updates the Google Calendar event itself rather than simply ignoring selected events
+var updateRoster = function (url) {
+  
+  var updateRosterCancelled = function(data) {
+    console.log("in addRoster with data: " + data);
+    $('#exchange-search').hide();
+    $('#exchange-main').hide();
+    $('#exchange-roster').show();
+  };
+
+  var options = {
+    // changed to store event id in roster database under attribute duration
+    
+    url: '/rosters',
+
+    // url: '/users/calendar?filter=post&new_status=' + new_status + '&event_id=' + url, 
+    type: 'post', // http post request is performed in controller
+    dataType: 'json',
+    // changed to store event id
+    
+    // add to event id that we want to record as being cancelled in the attribute 'name_shift' in the rosters controller
+    data: { roster: { name_shift: url } }
+
+          /*end: { dateTime: "2015-07-22T11:30:00-07:00" }
+                    , status: "cancelled"
+                    , colorID: "rgb(150, 100, 100)"
+                }*/
+  }; // options
+
+  $.ajax(options).done(function(calendar) {
+    console.log('ajax update calendar success');
+    console.log(calendar);
+    // after get calendar from controller server side
+  }).done(function(calendar_data) { // success handler
+    console.log("data is: " + calendar_data);
+    // refresh the page so the list is redisplayed but with the events that have had the 'cancelled' button clicked being filtered out
+    window.location.reload(true);
+    updateRosterCancelled(calendar_data);
+  }).error(function(calendar_data) { // failure handler
+    console.log("error is: " + calendar_data);
+  }); // ajax etc
+
+}; // updateRoster
