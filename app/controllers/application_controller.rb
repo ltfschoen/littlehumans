@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  # TO-DO - to get users timezone and add to database for roster creation
+  # http://stackoverflow.com/questions/4269270/rails-3-setting-the-timezone-to-the-current-users-timezone
+  # around_filter :user_time_zone, :if => :current_user
+
+  # def user_time_zone(&block)
+  #   Time.use_zone(current_user.time_zone, &block)
+  # end
+
   # def after_sign_in_path_for(resource)
   #   request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   # end
