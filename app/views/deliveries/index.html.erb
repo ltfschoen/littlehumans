@@ -41,10 +41,10 @@
     <% @deliveries.each do |delivery| %>
     <tr onclick="showDelivery(<%= delivery.id %>)">
       <a id="fake_click_<%= delivery.id %>" href="/deliveries/<%= delivery.id %>"></a>
-      <td><%= delivery.name_baby %></td>
-      <td><%= delivery.time_born %></td>
-      <td><%= delivery.name_location_born %></td>
-      <td><%= delivery.user.name if delivery.user %> <%= delivery.user.id if delivery.user %></td>
+      <td onmouseover="" style="cursor: pointer;"><%= delivery.name_baby %></td>
+      <td onmouseover="" style="cursor: pointer;"><%= delivery.time_born %></td>
+      <td onmouseover="" style="cursor: pointer;"><%= delivery.name_location_born %></td>
+      <td onmouseover="" style="cursor: pointer;"><%= delivery.user.name if delivery.user %> <%= delivery.user.id if delivery.user %></td>
       <% if @all == false %> <!-- only let midwife user who created baby make changes -->
       <td><%= link_to "Destroy", delivery, :method => :delete, :data => { :confirm => "Are you sure?" }, :class => "btn btn-default" %></td>
       <% end %>
@@ -56,7 +56,16 @@
 </table>
 
 <script>
-
+  /*
+    in the deliveries view. when the user clicks one of the babies (anywhere on their row)
+    an ajax query is performed to grab the babies details in json format from the database
+    and once the ajax success handler indicates this action has been completed, we use 
+    jQuery to switch the page that is displayed to be the 'show' page associated with 
+    that baby (delivery) id. 
+    this functionality improves the user experience as it replicates 'touch' functionality. 
+    whereby the user is not constrained by only being able to click a small URL tag to 
+    switch views.
+  */
   function showDelivery(delivery) {
     console.log(delivery);
     var options = {
