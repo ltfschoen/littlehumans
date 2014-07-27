@@ -1,4 +1,4 @@
-var fetchRoster = function (url) {
+var fetchRoster = function(url) {
 
   var countHours = function(start, end){
     // sample of start is 2014-03-26T10:00:00+11:00
@@ -14,7 +14,7 @@ var fetchRoster = function (url) {
       start = new Date(start.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19) );
       end = new Date(end.replace(/-/g,'/').replace(/[A-Z]/,' ').substr(0,19));
       hours = hours + ( end - start ) / ( 1000 * 60 * 60 );
-
+      hours = hours.toFixed(1);
       return (hours + ' hrs'); // returns 0.5 hrs
     }; // if not start and end empty
   }; //function count hours
@@ -22,7 +22,7 @@ var fetchRoster = function (url) {
   // JSON of public calendar currently under test
   var addRoster = function(data) {
     $('#calendar-list').html(''); // reset DOM value to empty
-    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Status</td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
+    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
     console.log(data);
 
     // grab the array stored in a hidden temporary DOM element containing event ids that we want to filter out and not display (i.e. where we have clicked the cancell button. 
@@ -45,9 +45,8 @@ var fetchRoster = function (url) {
           // returns .date (if all day event), or .dateTime (if duration specified)
           '</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
           '</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +    
-          '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')) +
-          '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')) +
-          '</td><td id="' + this.id + '">' + (this.status ? this.status : '') +       
+          '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')).replace('T', ' ') +
+          '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')).replace('T', ' ') +     
           '</td></tr>'
         );
       };
@@ -88,7 +87,7 @@ function loadGoogleAPI() {
 
 // ajax call to users/calender when user clicks a roster anchor tag
 // updates the Google Calendar event itself rather than simply ignoring selected events
-var updateRoster = function (url) {
+var updateRoster = function(url) {
   
   var updateRosterCancelled = function(data) {
     console.log("in addRoster with data: " + data);
@@ -128,5 +127,4 @@ var updateRoster = function (url) {
   }).error(function(calendar_data) { // failure handler
     console.log("error is: " + calendar_data);
   }); // ajax etc
-
 }; // updateRoster

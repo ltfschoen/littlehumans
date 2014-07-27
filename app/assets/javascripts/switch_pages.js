@@ -3,7 +3,7 @@ $('#news').on('click', function(event) {
   $('#exchange-search').hide();
   $('#exchange-roster').hide();
   $('#exchange-main').show();
-})
+});
 
 // prevent click showing all pages
 $('#roster').on('click', function(event) {
