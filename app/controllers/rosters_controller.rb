@@ -20,6 +20,47 @@ class RostersController < ApplicationController
           format.json { render :json => @url_resp.to_json }
           format.html { redirect_to user_path(current_user), :notice => 'httparty response errors.' }
       end
+    elsif params[:filter] == "post" #&& params[:new_status] == "create"
+      #new_status = params[:new_status]
+      # event_id = params[:event_id]
+ 
+      require 'rubygems'
+      require 'google_calendar'
+
+      cal = Google::Calendar.new(:username => ENV['G_USER'],
+                                 :password => ENV['G_PASS'],
+                                 :app_name => 'Littlehumans',
+                                 :calendar => 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com')
+
+
+      event = cal.create_event do |e|
+        e.title = 'A Cool Event'
+        e.start_time = Time.now
+        e.end_time = Time.now + (60 * 60) # seconds * min
+      end
+
+      # event = cal.find_or_create_event_by_id(event.id) do |e|
+      #   e.title = 'An Updated Cool Event'
+      #   e.end_time = Time.now + (60 * 60 * 2) # seconds * min * hours
+      # end
+
+      # # All events
+      # puts cal.events
+
+      # # Query events
+      # puts cal.find_events('my search string')
+
+      logger.info("event is *** #{event.to_json}") # display in rails console
+
+      logger.info("cal events is *** #{cal.events.to_json}") # display in rails console
+
+      test = { :hi => "hi" }
+      logger.info("test is *** #{test.to_json}") # display in rails console
+
+      respond_to do |format|
+          format.json { render :json => event.to_json }
+          format.html { redirect_to user_path(current_user), :notice => 'httparty response errors.' }
+      end
     else
       params[:filter] == nil
     end

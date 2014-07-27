@@ -1,4 +1,4 @@
-var fetchRoster = function (url) {
+var fetchRoster = function(url) {
 
   var countHours = function(start, end){
     // sample of start is 2014-03-26T10:00:00+11:00
@@ -88,7 +88,7 @@ function loadGoogleAPI() {
 
 // ajax call to users/calender when user clicks a roster anchor tag
 // updates the Google Calendar event itself rather than simply ignoring selected events
-var updateRoster = function (url) {
+var updateRoster = function(url) {
   
   var updateRosterCancelled = function(data) {
     console.log("in addRoster with data: " + data);
@@ -125,6 +125,40 @@ var updateRoster = function (url) {
     // refresh the page so the list is redisplayed but with the events that have had the 'cancelled' button clicked being filtered out
     window.location.reload(true);
     updateRosterCancelled(calendar_data);
+  }).error(function(calendar_data) { // failure handler
+    console.log("error is: " + calendar_data);
+  }); // ajax etc
+};
+
+var createEvent = function(url) {
+  
+  var createRosterEvent = function(data) {
+    console.log("in addRoster with data: " + data);
+    $('#exchange-search').hide();
+    $('#exchange-main').hide();
+    $('#exchange-roster').show();
+  };
+
+  var options = {
+    // url: '/rosters/show?filter=post&new_status=' + new_status + '&event_id=' + url,
+    url: '/rosters/show?filter=post', 
+    type: 'get', // http post request is performed in controller
+    dataType: 'json',
+    // data: 'hi'
+
+  }; // options
+
+  $.ajax(options).done(function(calendar) {
+    console.log('ajax calendar action success');
+    console.log(calendar);
+    // after get calendar from controller server side
+  }).done(function(calendar_data) { // success handler
+    console.log("data is: " + calendar_data);
+    // refresh the page so the list is redisplayed with updated events 
+
+    // DISABLE RELOAD TEMPORARILY
+    // window.location.reload(true);
+    // createRosterEvent(calendar_data);
   }).error(function(calendar_data) { // failure handler
     console.log("error is: " + calendar_data);
   }); // ajax etc
