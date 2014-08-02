@@ -1,19 +1,11 @@
-<!-- TESTING -->
-<%# ActiveSupport::TimeZone.new('Australia/Sydney').local_to_utc(t) %>
-<%# timezone = ActiveSupport::TimeZone.new('Australia/Sydney') %>
-<%# Time.use_zone(timezone){} %>
+<!-- http://apidock.com/rails/ActionView/Helpers/FormHelper/form_for -->
+<!-- form use depending on which function. parameter for each defined in controller -->
+<% if @form_switch == "new event" %>
+  <%= form_for(@roster, url: new_event_rosters_path, :method => 'post') do |f| %>
+<%# else %>
+  <%#= form_for(@roster, url: edit_event_rosters_path, :method => 'put') do |f| %>
+<% end %>
 
-<%#= t = Time.now %>
-<%#= offset = ActiveSupport::TimeZone.new('Australia/Sydney').utc_offset() %>
-<%# t = t.in_time_zone("Australia/Sydney") %>
-<%# t += offset %>
-<%#= t %>
-<%#= ActiveSupport::TimeZone.new('Australia/Sydney') %>
-<%#= config.time_zone %>
-<%#= Time.zone %>
-
-<%#= form_for(@roster) do |f| %>
-<%= form_for @roster, :method => 'get' do |f| %>
   <% if @roster.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@roster.errors.count, "error") %> prohibited this roster from being saved:</h2>
@@ -50,38 +42,16 @@
     <%= f.datetime_select :time_shift_end %>
   </div>
 
-  <!-- <div class="field"> -->
-    <%#= f.label :time_shift_duration %><br>
-    <%#= f.text_field :time_shift_duration %>
-  <!-- </div> -->
-
   <div class="actions">
     <%= link_to "Back", :back, :class => "btn btn-default btn-lg active" %>&nbsp;
 
     <%= f.submit("Create", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
-    <!-- <a href="#" id="create_event" class="btn btn-default btn-lg responsive">Create Event</a> -->
+
+    <% if @form_switch == "new event" %>
+      <%= f.submit("Create", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
+    <%# else %>
+      <%#= f.submit("Edit", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
+    <% end %>
   </div>
   
 <% end %>
-
-<% content_for :head do %>
-  <script type="text/javascript">
-    <%= render 'rosters/create_event.js' %>
-  </script>
-<% end %>
-
-<script type="text/javascript">
-  
-  // clicked the Create Event button
-  $('#create_event').on('click', function(event) {
-    console.log("create_event pressed1111");
-    event.preventDefault();
-    $('#exchange-search').hide();
-    $('#exchange-main').hide();
-    $('#exchange-roster').show();
-    createEvent();
-  });
-
-</script>
-<%#= javascript_include_tag "switch_pages.js" %>
-

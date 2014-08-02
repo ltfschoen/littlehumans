@@ -23,6 +23,13 @@ LittlehumansApp::Application.routes.draw do
     resources :deliveries
   end
 
+  resources :rosters do
+    collection do
+      post :new_event
+      post :delete_event
+    end
+  end
+
   get "/dashboard" => "users#dashboard", :as => :dashboard
 
   devise_scope :user do
