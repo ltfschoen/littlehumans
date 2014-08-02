@@ -6,5 +6,6 @@ module ApplicationHelper
   # http://stackoverflow.com/questions/6887319/common-method-in-model-and-helper
   include ClientTwitter
   include ClientGoogle
+  include ClientGoogleCalendar
 
 end

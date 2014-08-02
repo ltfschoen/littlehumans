@@ -43,25 +43,3 @@
   </div>
   
 <% end %>
-
-<% content_for :head do %>
-  <script type="text/javascript">
-    <%= render 'rosters/create_event.js' %>
-  </script>
-<% end %>
-
-<script type="text/javascript">
-  
-  // clicked the Create Event button
-  $('#create_event').on('click', function(event) {
-    console.log("create_event pressed1111");
-    event.preventDefault();
-    $('#exchange-search').hide();
-    $('#exchange-main').hide();
-    $('#exchange-roster').show();
-    createEvent();
-  });
-
-</script>
-<%#= javascript_include_tag "switch_pages.js" %>
-

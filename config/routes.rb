@@ -26,7 +26,6 @@ LittlehumansApp::Application.routes.draw do
   resources :rosters do
     collection do
       post :new_event
-      get :view_calendar
     end
   end
 
