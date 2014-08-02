@@ -1,6 +1,37 @@
 class RostersController < ApplicationController
   #before_action :set_user, only: [:calendar]
 
+  def new_event
+
+    @roster = current_user.rosters.new(roster_params)
+
+    require 'rubygems'
+    require 'google_calendar'
+
+    cal = Google::Calendar.new(:username => ENV['G_USER'],
+                               :password => ENV['G_PASS'],
+                               :app_name => 'Littlehumans',
+                               :calendar => 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com')
+    logger.info("MADE IT")
+    logger.info("roster is *** #{@roster.to_json}")
+    logger.info("name_shift is *** #{@roster["name_shift"]}")
+
+    event = cal.create_event do |e|
+      e.title = @roster["name_shift"]
+      e.where = @roster["name_location_shift"] + ", " + @roster["name_location_hospital"]
+      e.start_time = @roster["time_shift_start"]
+      e.end_time = @roster["time_shift_end"]
+    end
+
+    logger.info("event is *** #{event.to_json}") # display in rails console
+
+    logger.info("cal events is *** #{cal.events.to_json}") # display in rails console
+
+    respond_to do |format|
+        format.html { redirect_to user_path(current_user), :notice => 'calendar event created.' }
+    end
+  end
+
   # GET /rosters
   # GET /rosters.json
   def index
@@ -11,31 +42,6 @@ class RostersController < ApplicationController
 
     if params[:filter] != "view" # do not run this if use clicks to "view" the calendar
 
-      require 'rubygems'
-      require 'google_calendar'
-
-      cal = Google::Calendar.new(:username => ENV['G_USER'],
-                                 :password => ENV['G_PASS'],
-                                 :app_name => 'Littlehumans',
-                                 :calendar => 'm88eksashs23rt5r00ji2vpn2g@group.calendar.google.com')
-
-      logger.info("roster is *** #{@roster.to_json}")
-      logger.info("name_shift is *** #{@roster["name_shift"]}")
-
-      event = cal.create_event do |e|
-        e.title = @roster["name_shift"]
-        e.where = @roster["name_location_shift"] + ", " + @roster["name_location_hospital"]
-        e.start_time = @roster["time_shift_start"]
-        e.end_time = @roster["time_shift_end"]
-      end
-
-      logger.info("event is *** #{event.to_json}") # display in rails console
-
-      logger.info("cal events is *** #{cal.events.to_json}") # display in rails console
-
-      respond_to do |format|
-          format.html { redirect_to user_path(current_user), :notice => 'calendar event created.' }
-      end
     end
 
   end

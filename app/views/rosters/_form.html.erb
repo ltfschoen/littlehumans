@@ -1,19 +1,5 @@
-<!-- TESTING -->
-<%# ActiveSupport::TimeZone.new('Australia/Sydney').local_to_utc(t) %>
-<%# timezone = ActiveSupport::TimeZone.new('Australia/Sydney') %>
-<%# Time.use_zone(timezone){} %>
-
-<%#= t = Time.now %>
-<%#= offset = ActiveSupport::TimeZone.new('Australia/Sydney').utc_offset() %>
-<%# t = t.in_time_zone("Australia/Sydney") %>
-<%# t += offset %>
-<%#= t %>
-<%#= ActiveSupport::TimeZone.new('Australia/Sydney') %>
-<%#= config.time_zone %>
-<%#= Time.zone %>
-
-<%#= form_for(@roster) do |f| %>
-<%= form_for @roster, :method => 'get' do |f| %>
+<!-- http://apidock.com/rails/ActionView/Helpers/FormHelper/form_for -->
+<%= form_for(@roster, url: new_event_rosters_path, :method => 'post') do |f| %>
   <% if @roster.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@roster.errors.count, "error") %> prohibited this roster from being saved:</h2>
@@ -50,16 +36,10 @@
     <%= f.datetime_select :time_shift_end %>
   </div>
 
-  <!-- <div class="field"> -->
-    <%#= f.label :time_shift_duration %><br>
-    <%#= f.text_field :time_shift_duration %>
-  <!-- </div> -->
-
   <div class="actions">
     <%= link_to "Back", :back, :class => "btn btn-default btn-lg active" %>&nbsp;
 
     <%= f.submit("Create", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
-    <!-- <a href="#" id="create_event" class="btn btn-default btn-lg responsive">Create Event</a> -->
   </div>
   
 <% end %>
