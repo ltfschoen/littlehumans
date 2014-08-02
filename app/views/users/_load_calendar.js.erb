@@ -22,7 +22,7 @@ var fetchRoster = function(url) {
   // JSON of public calendar currently under test
   var addRoster = function(data) {
     $('#calendar-list').html(''); // reset DOM value to empty
-    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
+    $('#calendar-list').html('<tr class="info"><td>Name</td><td>Shift</td><td>Dept</td><td>Location</td><td>Duration</td><td></td><td></td><td>Start</td><td>Finish</td></tr>'); // reset each time loaded
     console.log(data);
 
     // grab the array stored in a hidden temporary DOM element containing event ids that we want to filter out and not display (i.e. where we have clicked the cancell button. 
@@ -44,7 +44,8 @@ var fetchRoster = function(url) {
           '</td><td>' + (this.location ? this.location.split(",", 1) : '') + // max characters 21
           // returns .date (if all day event), or .dateTime (if duration specified)
           '</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
-          '</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +    
+          '</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +
+          '</td><td><a onclick="deleteRoster(' + "'" + this.id  + "'" + ');" class="btn btn-danger btn-lg active">Delete</a>' +     
           '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')).replace('T', ' ') +
           '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')).replace('T', ' ') +     
           '</td></tr>'
@@ -85,12 +86,11 @@ function loadGoogleAPI() {
   fetchRoster();
 };
 
-// ajax call to users/calender when user clicks a roster anchor tag
-// updates the Google Calendar event itself rather than simply ignoring selected events
+// ajax call to rosters/calender when user clicks a roster anchor tag
 var updateRoster = function(url) {
   
   var updateRosterCancelled = function(data) {
-    console.log("in addRoster with data: " + data);
+    console.log("in updateRosterCancelled with data: " + data);
     $('#exchange-search').hide();
     $('#exchange-main').hide();
     $('#exchange-roster').show();
@@ -106,7 +106,7 @@ var updateRoster = function(url) {
     dataType: 'json',
     // changed to store event id
     
-    // add to event id that we want to record as being cancelled in the attribute 'name_shift' in the rosters controller
+    // add event id that we want to record as being cancelled in the attribute 'name_shift' in the rosters controller
     data: { roster: { name_shift: url } }
 
           /*end: { dateTime: "2015-07-22T11:30:00-07:00" }
@@ -128,3 +128,38 @@ var updateRoster = function(url) {
     console.log("error is: " + calendar_data);
   }); // ajax etc
 }; // updateRoster
+
+// ajax call to rosters/calendar when user clicks a roster anchor tag
+var deleteRoster = function(url) {
+  
+  console.log(url);
+
+  var deleteRosterSelected = function(data) {
+    console.log("in deleteRosterSelected with data: " + data);
+    $('#exchange-search').hide();
+    $('#exchange-main').hide();
+    $('#exchange-roster').show();
+  };
+
+  var options = {
+    // changed to store event id in roster database under attribute duration
+    url: '/rosters/delete_event', 
+    type: 'post', // http post request is performed in controller
+    dataType: 'json',
+    // add event id that we want to delete as the attribute 'name_shift' in the rosters controller
+    data: { roster: { name_shift: url } }
+  }; // options
+
+  $.ajax(options).done(function(calendar) {
+    console.log('ajax delete calendar success');
+    console.log(calendar);
+    // after get calendar from controller server side
+  }).done(function(calendar_data) { // success handler
+    console.log("data is: " + calendar_data);
+    // refresh the page so the list is redisplayed but with deleted events removed
+    window.location.reload(true);
+    deleteRosterSelected(calendar_data);
+  }).error(function(calendar_data) { // failure handler
+    console.log("error is: " + calendar_data);
+  }); // ajax etc
+}; // deleteRoster

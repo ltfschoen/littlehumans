@@ -30,6 +30,25 @@ class RostersController < ApplicationController
     end
   end
 
+  # delete an event from Google Calendar named Littlehumans
+  def delete_event
+    # parameter passed from _load_calendar.js.erb containing data json with event id to delete 
+    @roster = current_user.rosters.new(roster_params)
+
+    cal = ClientGoogleCalendar::client_google_calendar
+
+    # find event id 
+    event_id = @roster["name_shift"]
+    event = cal.find_or_create_event_by_id(event_id)
+
+    cal.delete_event(event)
+
+    respond_to do |format|
+        format.json { render :json => @url_resp.to_json }
+        format.html { redirect_to user_path(current_user), :notice => 'httparty response errors.' }
+    end
+  end
+
   # displays all Google Calendar events from calendar named Littlehumans except ignored ones 
   def show
     # obtain parsed Google Calendar API with pre-defined calendar id using key/secret
@@ -50,18 +69,16 @@ class RostersController < ApplicationController
   # DRAFT 
   # edit an existing Google Calendar event on calendar Littlehumans
   def edit
+    # parameters passed from _load_calendar.js.erb containing data json to edit the event with
+    @roster = current_user.rosters.new(roster_params)
+
     cal = ClientGoogleCalendar::client_google_calendar
 
-    # event = cal.find_or_create_event_by_id(event.id) do |e|
-    #   e.title = 'An Updated Cool Event'
-    #   e.end_time = Time.now + (60 * 60 * 2) # seconds * min * hours
-    # end
-
-    # # All events
-    # puts cal.events
-
-    # # Query events
-    # puts cal.find_events('my search string')
+    # find event id passed in 
+    event = cal.find_or_create_event_by_id(@roster["name_shift"]) do |e|
+      # edit the attributes of the event id similar to when creating an event
+      e.title = 'AAA' # hard coded example
+    end
 
     respond_to do |format|
         format.json { render :json => event.to_json }

@@ -26,6 +26,7 @@ LittlehumansApp::Application.routes.draw do
   resources :rosters do
     collection do
       post :new_event
+      post :delete_event
     end
   end
 
