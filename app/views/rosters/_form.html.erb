@@ -1,5 +1,11 @@
 <!-- http://apidock.com/rails/ActionView/Helpers/FormHelper/form_for -->
-<%= form_for(@roster, url: new_event_rosters_path, :method => 'post') do |f| %>
+<!-- form use depending on which function. parameter for each defined in controller -->
+<% if @form_switch == "new event" %>
+  <%= form_for(@roster, url: new_event_rosters_path, :method => 'post') do |f| %>
+<%# else %>
+  <%#= form_for(@roster, url: edit_event_rosters_path, :method => 'put') do |f| %>
+<% end %>
+
   <% if @roster.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@roster.errors.count, "error") %> prohibited this roster from being saved:</h2>
@@ -40,6 +46,12 @@
     <%= link_to "Back", :back, :class => "btn btn-default btn-lg active" %>&nbsp;
 
     <%= f.submit("Create", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
+
+    <% if @form_switch == "new event" %>
+      <%= f.submit("Create", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
+    <%# else %>
+      <%#= f.submit("Edit", data: { :disable_with => "Please wait.." }, :class => "btn btn-lg btn-success") %>
+    <% end %>
   </div>
   
 <% end %>

@@ -44,7 +44,8 @@ var fetchRoster = function(url) {
           '</td><td>' + (this.location ? this.location.split(",", 1) : '') + // max characters 21
           // returns .date (if all day event), or .dateTime (if duration specified)
           '</td><td>' + countHours(this.start.dateTime ? this.start.dateTime : '', this.end.dateTime ? this.end.dateTime : '') +
-          '</td><td><a onclick="updateRoster(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +
+          '</td><td><a onclick="ignoreEvent(' + "'" + this.id  + "'" + ');" class="btn btn-default btn-lg active">Ignore</a>' +
+          '</td><td><a onclick="editEvent(' + "'" + this.id + "'" + ');" class="btn btn-default btn-lg active">Edit</a>' +
           '</td><td><a onclick="deleteRoster(' + "'" + this.id  + "'" + ');" class="btn btn-danger btn-lg active">Delete</a>' +     
           '</td><td>' + (this.start.dateTime ? this.start.dateTime : (this.start.date ? this.start.date : '')).replace('T', ' ') +
           '</td><td>' + (this.end.dateTime ? this.end.dateTime : (this.end.date ? this.end.date : '')).replace('T', ' ') +     
@@ -86,11 +87,11 @@ function loadGoogleAPI() {
   fetchRoster();
 };
 
-// ajax call to rosters/calender when user clicks a roster anchor tag
-var updateRoster = function(url) {
+// ajax call to rosters when user clicks a roster anchor tag
+var ignoreEvent = function(url) {
   
-  var updateRosterCancelled = function(data) {
-    console.log("in updateRosterCancelled with data: " + data);
+  var ignoreEventCancelled = function(data) {
+    console.log("in ignoreEventCancelled with data: " + data);
     $('#exchange-search').hide();
     $('#exchange-main').hide();
     $('#exchange-roster').show();
@@ -116,20 +117,20 @@ var updateRoster = function(url) {
   }; // options
 
   $.ajax(options).done(function(calendar) {
-    console.log('ajax update calendar success');
+    console.log('ajax ignore event success');
     console.log(calendar);
     // after get calendar from controller server side
   }).done(function(calendar_data) { // success handler
     console.log("data is: " + calendar_data);
     // refresh the page so the list is redisplayed but with the events that have had the 'cancelled' button clicked being filtered out
     window.location.reload(true);
-    updateRosterCancelled(calendar_data);
+    ignoreEventCancelled(calendar_data);
   }).error(function(calendar_data) { // failure handler
     console.log("error is: " + calendar_data);
   }); // ajax etc
-}; // updateRoster
+}; // ignoreEvent
 
-// ajax call to rosters/calendar when user clicks a roster anchor tag
+// ajax call to rosters/delete_event when user clicks a roster anchor tag
 var deleteRoster = function(url) {
   
   console.log(url);
@@ -142,7 +143,6 @@ var deleteRoster = function(url) {
   };
 
   var options = {
-    // changed to store event id in roster database under attribute duration
     url: '/rosters/delete_event', 
     type: 'post', // http post request is performed in controller
     dataType: 'json',

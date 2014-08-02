@@ -30,6 +30,29 @@ class RostersController < ApplicationController
     end
   end
 
+  # edit an existing event on Google Calendar named 'Littlehumans'
+  # POST /rosters/edit_event
+  def edit_event
+    # parameters passed from _load_calendar.js.erb containing data json to edit the event with
+    @roster = current_user.rosters.new(roster_params)
+    @form_switch = "edit event"
+
+    cal = ClientGoogleCalendar::client_google_calendar
+
+    # find event id passed in 
+    event = cal.find_or_create_event_by_id(@roster["name_shift"]) do |e|
+      # edit the attributes of the event id similar to when creating an event
+      #e.title = @roster["name_shift"]
+      e.where = @roster["name_shift"]# + ", " + @roster["name_location_hospital"]
+      #e.start_time = @roster["time_shift_start"]
+      #e.end_time = @roster["time_shift_end"]
+    end
+
+    respond_to do |format|
+        format.html { redirect_to user_path(current_user), :notice => 'calendar event updated.' }
+    end
+  end
+
   # delete an event from Google Calendar named Littlehumans
   def delete_event
     # parameter passed from _load_calendar.js.erb containing data json with event id to delete 
@@ -64,26 +87,11 @@ class RostersController < ApplicationController
   # GET /rosters/new
   def new
     @roster = current_user.rosters.new
+    @form_switch = "new event"
   end
 
-  # DRAFT 
-  # edit an existing Google Calendar event on calendar Littlehumans
   def edit
-    # parameters passed from _load_calendar.js.erb containing data json to edit the event with
     @roster = current_user.rosters.new(roster_params)
-
-    cal = ClientGoogleCalendar::client_google_calendar
-
-    # find event id passed in 
-    event = cal.find_or_create_event_by_id(@roster["name_shift"]) do |e|
-      # edit the attributes of the event id similar to when creating an event
-      e.title = 'AAA' # hard coded example
-    end
-
-    respond_to do |format|
-        format.json { render :json => event.to_json }
-        format.html { redirect_to user_path(current_user), :notice => 'httparty response errors.' }
-    end
   end
 
   # POST /rosters
